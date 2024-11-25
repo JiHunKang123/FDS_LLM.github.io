@@ -17,7 +17,7 @@
         }
         .sidebar {
             width: 300px;
-            background-color: #e8e8e8; /* 옅은 회색으로 변경 */
+            background-color: #e8e8e8;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
@@ -106,12 +106,15 @@
             background-color: #e0e0e0;
             color: #333;
         }
-        input[type="text"] {
+        textarea {
             flex: 1;
             padding: 10px;
             margin-right: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            resize: none;
+            overflow: hidden;
+            min-height: 40px;
         }
         button {
             padding: 10px;
@@ -138,13 +141,10 @@
         </select>
         <p id="taskDescription" style="margin-top: 10px; color: #333;"></p>
         <label for="temperature">Temperature: <span id="temperatureValue">0.7</span></label>
-        <p>Temperature</p>
         <input type="range" id="temperature" name="temperature" min="0" max="1" step="0.1" value="0.7" oninput="updateSliderValue('temperature', 'temperatureValue')">
         <label for="maxTokens">Max Tokens: <span id="maxTokensValue">150</span></label>
-        <p>Tokens</p>
         <input type="range" id="maxTokens" name="maxTokens" min="1" max="2048" step="1" value="150" oninput="updateSliderValue('maxTokens', 'maxTokensValue')">
         <label for="topP">Top P: <span id="topPValue">0.9</span></label>
-        <p>Topp</p>
         <input type="range" id="topP" name="topP" min="0" max="1" step="0.1" value="0.9" oninput="updateSliderValue('topP', 'topPValue')">
     </div>
     <div class="main">
@@ -157,7 +157,7 @@
         <div class="container" id="chatContainer">
             <div class="top-section" id="messages"></div>
             <div class="bottom-section">
-                <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key === 'Enter') addMessage()">
+                <textarea id="userInput" placeholder="Type your message..." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter') { event.preventDefault(); addMessage(); }"></textarea>
                 <button onclick="addMessage()">Send</button>
             </div>
         </div>
@@ -210,10 +210,16 @@
 
                 if (sender === 'user' && !messageText) {
                     document.getElementById('userInput').value = '';
+                    resizeTextarea(document.getElementById('userInput'));
                     // Simulate LLM response
                     setTimeout(() => addMessage('llm', 'This is a simulated response from the LLM.'), 1000);
                 }
             }
+        }
+
+        function resizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
         }
     </script>
 </body>
