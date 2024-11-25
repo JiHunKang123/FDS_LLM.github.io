@@ -128,13 +128,10 @@
         <p id="taskDescription" style="margin-top: 10px; color: #333;"></p>
         <label for="temperature">Temperature: <span id="temperatureValue">0.7</span></label>
         <input type="range" id="temperature" name="temperature" min="0" max="1" step="0.1" value="0.7" oninput="updateSliderValue('temperature', 'temperatureValue')">
-        
-        <label for="maxTokens">Max Tokens:</label>
+        <label for="maxTokens">Max Tokens: <span id="maxTokensValue">150</span></label>
         <input type="range" id="maxTokens" name="maxTokens" min="1" max="2048" step="1" value="150" oninput="updateSliderValue('maxTokens', 'maxTokensValue')">
-        <span id="maxTokensValue">150</span>
-        <label for="topP">Top P:</label>
+        <label for="topP">Top P: <span id="topPValue">0.9</span></label>
         <input type="range" id="topP" name="topP" min="0" max="1" step="0.1" value="0.9" oninput="updateSliderValue('topP', 'topPValue')">
-        <span id="topPValue">0.9</span>
     </div>
     <div class="main">
         <div class="initial-view">
