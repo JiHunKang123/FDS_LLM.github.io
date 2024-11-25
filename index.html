@@ -275,7 +275,7 @@
                     const llmBubbleDiv = document.createElement('div');
                     llmBubbleDiv.classList.add('bubble');
                     llmBubbleDiv.innerHTML = chunk;
-                    llmMessageDiv.createElement(llmBubbleDiv);
+                    llmMessageDiv.append(llmBubbleDiv);
                     //messagesDiv.appendChild(llmBubbleDiv);
                     messagesDiv.scrollTop = messagesDiv.scrollHeight;
                     chunkIndex++;
