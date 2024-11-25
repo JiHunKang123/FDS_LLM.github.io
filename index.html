@@ -262,6 +262,17 @@
             //messagesDiv.appendChild(llmMessageDiv);
             //messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
+            // Add loading animation
+            const messagesDiv = document.getElementById('messages');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.classList.add('message', 'llm');
+            const loadingCircle = document.createElement('div');
+            loadingCircle.classList.add('loading-circle');
+            loadingDiv.appendChild(loadingCircle);
+            messagesDiv.appendChild(loadingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            
             // Simulate streaming LLM response
             const responseChunks = [
                 "This is the first part of the simulated response.",
@@ -293,7 +304,7 @@
                     chunkIndex++;
                 } else {
                     clearInterval(interval);
-                    //llmBubbleDiv.removeChild(loadingCircle);
+                    messagesDiv.removeChild(loadingDiv);
                     isGeneratingResponse = false;
                     document.getElementById('userInput').disabled = false;
                     document.getElementById('userInput').focus();
