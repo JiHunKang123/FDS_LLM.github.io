@@ -246,20 +246,20 @@
         function generateLLMResponse() {
             // Simulate loading animation
             const messagesDiv = document.getElementById('messages');
+            const llmMessageDiv = document.createElement('div');
+            llmMessageDiv.classList.add('message', 'llm');
             const loadingCircle = document.createElement('div');
             loadingCircle.classList.add('loading-circle');
-            messagesDiv.appendChild(loadingCircle);
+            llmMessageDiv.appendChild(loadingCircle);
+            messagesDiv.appendChild(llmMessageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
             // Simulate streaming LLM response
             const responseText = "This is a simulated response from the LLM, streaming line by line.";
             let index = 0;
-            const llmMessageDiv = document.createElement('div');
-            llmMessageDiv.classList.add('message', 'llm');
             const llmBubbleDiv = document.createElement('div');
             llmBubbleDiv.classList.add('bubble');
             llmMessageDiv.appendChild(llmBubbleDiv);
-            messagesDiv.appendChild(llmMessageDiv);
 
             const interval = setInterval(() => {
                 if (index < responseText.length) {
@@ -268,7 +268,7 @@
                     index++;
                 } else {
                     clearInterval(interval);
-                    messagesDiv.removeChild(loadingCircle);
+                    llmMessageDiv.removeChild(loadingCircle);
                 }
             }, 50);
         }
