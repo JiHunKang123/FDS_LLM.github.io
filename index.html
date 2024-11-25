@@ -54,8 +54,14 @@
         }
         .initial-view {
             width: 700px;
+            max-width: 100%;
+            height: 100%;
+            display: none;
             flex-direction: column;
-            align-items: center;
+            justify-content: flex-start;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            background: #ffffff;
         }
         #chatContainer {
             width: 700px;
@@ -111,19 +117,6 @@
         textarea {
             flex: 1;
             width: 700px;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid #fff;
-            resize: none;
-            overflow: hidden;
-            min-height: 100px;
-            background-color: #f0f0f0;
-            outline: none;
-            font-size: 16px;
-        }
-        .initial-input {
-            width: 650px;
-            margin-top: 20px;
             padding: 20px;
             border-radius: 20px;
             border: 1px solid #fff;
