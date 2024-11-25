@@ -109,22 +109,6 @@
             background-color: #e0e0e0;
             color: #333;
         }
-        .thought {
-            background-color: #f0f0f0;
-            color: #666;
-            max-width: 60%;
-            padding: 10px;
-            border-radius: 10px;
-            word-wrap: break-word;
-            cursor: pointer;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            position: relative;
-        }
-        .thought.expanded {
-            white-space: normal;
-        }
         .loading-circle {
             width: 20px;
             height: 20px;
@@ -285,14 +269,6 @@
                 } else {
                     clearInterval(interval);
                     llmMessageDiv.removeChild(loadingCircle);
-                    // Add a thought bubble (collapsible)
-                    const thoughtDiv = document.createElement('div');
-                    thoughtDiv.classList.add('thought');
-                    thoughtDiv.textContent = 'Thought: This is a simulated thought from the ReAct LLM.';
-                    thoughtDiv.onclick = function() {
-                        thoughtDiv.classList.toggle('expanded');
-                    };
-                    llmMessageDiv.appendChild(thoughtDiv);
                 }
             }, 50);
         }
