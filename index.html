@@ -280,9 +280,9 @@
                     //messagesDiv.scrollTop = messagesDiv.scrollHeight;
                     llmBubbleDiv.classList.add('message', 'llm');
 
-                    const loadingCircle = document.createElement('div');
-                    loadingCircle.classList.add('loading-circle');
-                    llmBubbleDiv.appendChild(loadingCircle);
+                    //const loadingCircle = document.createElement('div');
+                    //loadingCircle.classList.add('loading-circle');
+                    //llmBubbleDiv.appendChild(loadingCircle);
                     
                     const bubbleDiv = document.createElement('div');
                     bubbleDiv.classList.add('bubble');
@@ -293,11 +293,11 @@
                     chunkIndex++;
                 } else {
                     clearInterval(interval);
-                    llmBubbleDiv.removeChild(loadingCircle);
+                    //llmBubbleDiv.removeChild(loadingCircle);
                     isGeneratingResponse = false;
                     document.getElementById('userInput').disabled = false;
                     document.getElementById('userInput').focus();
-                } llmBubbleDiv.removeChild(loadingCircle);
+                }
             }, 1000);
         }
 
