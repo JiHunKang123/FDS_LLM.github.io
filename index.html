@@ -110,7 +110,7 @@
         }
         textarea {
             flex: 1;
-            padding: 10px;
+            padding: 20px;
             border-radius: 20px;
             border: 1px solid #fff;
             resize: none;
@@ -123,7 +123,7 @@
         .initial-input {
             width: 700px;
             margin-top: 20px;
-            padding: 10px;
+            padding: 20px;
             border-radius: 20px;
             border: 1px solid #fff;
             resize: none;
@@ -132,6 +132,18 @@
             background-color: #f0f0f0;
             outline: none;
             font-size: 16px;
+        }
+        .example-button {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #10a37f;
+            color: #fff;
+            cursor: pointer;
+        }
+        .example-button:hover {
+            background-color: #0e8b6a;
         }
     </style>
 </head>
@@ -155,14 +167,14 @@
     </div>
     <div class="main">
         <div class="initial-view">
-            <img src="demo_logo.png" alt="LLM Logo" style="width: 500px; margin-bottom: 20px;">
-            <button onclick="insertExample('initialUserInput')" style="margin-bottom: 10px;">Example Question</button>
-            <input type="text" id="initialUserInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') startChat()" class="initial-input">
+            <img src="demo_logo.png" alt="LLM Logo" style="width: 500px; margin-bottom: 100px;">
+            <button onclick="insertExample('initialUserInput')" class="example-button">예제</button>
+            <input type="text" id="initialUserInput" rows={1} placeholder="로그를 입력하세요." onkeydown="if(event.key === 'Enter') startChat()" class="initial-input">
             <br>
         </div>
         <div class="container" id="chatContainer">
             <div class="top-section" id="messages"></div>
-            <button onclick="insertExample('userInput')" style="margin-bottom: 10px;">Example Message</button>
+            <button onclick="insertExample('userInput')" class="example-button">예제</button>
             <div class="bottom-section">
                 <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
             </div>
