@@ -116,17 +116,6 @@
             overflow: hidden;
             min-height: 40px;
         }
-        button {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: #10a37f;
-            color: #fff;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0e8b6a;
-        }
     </style>
 </head>
 <body>
@@ -157,8 +146,7 @@
         <div class="container" id="chatContainer">
             <div class="top-section" id="messages"></div>
             <div class="bottom-section">
-                <textarea id="userInput" placeholder="Type your message..." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter') { event.preventDefault(); addMessage(); }"></textarea>
-                <button onclick="addMessage()">Send</button>
+                <textarea id="userInput" placeholder="Type your message..." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
             </div>
         </div>
     </div>
