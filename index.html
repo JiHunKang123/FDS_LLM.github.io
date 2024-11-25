@@ -126,8 +126,9 @@
             position: fixed;
             right: 0;
             top: 0;
-            height: 100%;
+            height: 100vh;
             width: 16px;
+            overflow-y: auto;
             background: transparent;
         }
         
@@ -246,16 +247,19 @@
         const responseDiv = document.getElementById('response');
         const externalScrollbar = document.getElementById('externalScrollbar');
         
+        // 외부 스크롤바와 responseDiv의 높이를 동기화
+        function updateScrollbar() {
+            // 외부 스크롤바의 높이를 responseDiv 내용의 높이와 일치시킴
+            externalScrollbar.style.height = `${responseDiv.scrollHeight}px`;
+        
+            // 외부 스크롤바 내부에 스크롤 가능한 가짜 콘텐츠 생성
+            externalScrollbar.innerHTML = '<div style="height: ' + responseDiv.scrollHeight + 'px;"></div>';
+        }
+        
         // 외부 스크롤바 동기화
         externalScrollbar.addEventListener('scroll', () => {
             responseDiv.scrollTop = externalScrollbar.scrollTop;
         });
-        
-        // responseDiv 내용이 변경될 때 외부 스크롤바 업데이트
-        function updateScrollbar() {
-            externalScrollbar.scrollTop = responseDiv.scrollTop;
-            externalScrollbar.style.height = `${responseDiv.scrollHeight}px`;
-        }
 
     
         
