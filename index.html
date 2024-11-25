@@ -70,6 +70,14 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .initial-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         h1 {
             color: #ffffff;
@@ -137,13 +145,18 @@
         <span id="presencePenaltyValue">0.0</span>
     </div>
     <div class="main">
-        <div class="container">
+        <div class="initial-view">
+            <img src="logo.png" alt="LLM Logo" style="width: 150px; margin-bottom: 20px;">
+            <input type="text" id="initialUserInput" placeholder="Type your question here...">
+            <br>
+            <button onclick="startChat()">Submit</button>
+        </div>
+        <div class="container" id="chatContainer">
             <h1>ChatGPT-like LLM Demo</h1>
-            <p>Ask a question to the Language Model:</p>
+            <div id="response"></div>
             <input type="text" id="userInput" placeholder="Type your question here...">
             <br>
             <button onclick="getResponse()">Submit</button>
-            <div id="response"></div>
         </div>
     </div>
 
@@ -164,6 +177,16 @@
             }
         }
 
+        function startChat() {
+            const initialUserInput = document.getElementById('initialUserInput').value;
+            if (initialUserInput) {
+                document.querySelector('.initial-view').style.display = 'none';
+                document.getElementById('chatContainer').style.display = 'flex';
+                document.getElementById('userInput').value = initialUserInput;
+                getResponse();
+            }
+        }
+
         function getResponse() {
             const userInput = document.getElementById('userInput').value;
             const responseDiv = document.getElementById('response');
@@ -176,6 +199,7 @@
             // Mock response for the demo (Replace with actual API call if needed)
             if(userInput) {
                 responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div><div><strong>LLM:</strong> This is a demo response from the LLM with temperature: ${temperature}, max tokens: ${maxTokens}, top P: ${topP}, frequency penalty: ${frequencyPenalty}, presence penalty: ${presencePenalty}.</div><hr>`;
+                document.getElementById('userInput').value = '';
             } else {
                 responseDiv.innerHTML += "<div>Please enter a question.</div><hr>";
             }
