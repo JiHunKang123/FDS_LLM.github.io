@@ -7,35 +7,58 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #343541;
+            color: #d1d5db;
             text-align: center;
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
-            background: #fff;
-            padding: 20px;
+            background: #40414f;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #ffffff;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #555770;
+            color: #ffffff;
         }
         button {
-            padding: 10px 20px;
+            background-color: #10a37f;
+            color: #ffffff;
+            padding: 12px 24px;
             font-size: 16px;
-            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0e8b6a;
         }
         #response {
-            margin-top: 20px;
-            font-weight: bold;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #444654;
+            border-radius: 8px;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>LLM Demo Page</h1>
+        <h1>ChatGPT-like LLM Demo</h1>
         <p>Ask a question to the Language Model:</p>
         <input type="text" id="userInput" placeholder="Type your question here...">
         <br>
@@ -50,7 +73,7 @@
             
             // Mock response for the demo (Replace with actual API call if needed)
             if(userInput) {
-                responseDiv.innerHTML = `You asked: "${userInput}"<br>Response: This is a demo response from the LLM.`;
+                responseDiv.innerHTML = `<strong>You:</strong> "${userInput}"<br><strong>LLM:</strong> This is a demo response from the LLM.`;
             } else {
                 responseDiv.innerHTML = "Please enter a question.";
             }
