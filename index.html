@@ -188,6 +188,8 @@
         </div>
     </div>
     <script>
+        let isGeneratingResponse = false;
+
         function updateTaskDescription() {
             const task = document.getElementById('task').value;
             const taskDescription = document.getElementById('taskDescription');
@@ -237,13 +239,18 @@
                 if (sender === 'user' && !messageText) {
                     document.getElementById('userInput').value = '';
                     resizeTextarea(document.getElementById('userInput'));
-                    // Trigger LLM response
                     generateLLMResponse();
                 }
             }
         }
 
         function generateLLMResponse() {
+            if (isGeneratingResponse) return;
+            isGeneratingResponse = true;
+
+            // Disable user input during LLM response
+            document.getElementById('userInput').disabled = true;
+
             // Simulate loading animation
             const messagesDiv = document.getElementById('messages');
             const llmMessageDiv = document.createElement('div');
@@ -255,22 +262,30 @@
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
             // Simulate streaming LLM response
-            const responseText = "This is a simulated response from the LLM, streaming line by line.";
-            let index = 0;
-            const llmBubbleDiv = document.createElement('div');
-            llmBubbleDiv.classList.add('bubble');
-            llmMessageDiv.appendChild(llmBubbleDiv);
+            const responseChunks = [
+                "This is the first part of the simulated response.",
+                " Here comes the second part of the response.",
+                " Finally, this is the last part of the response."
+            ];
 
+            let chunkIndex = 0;
             const interval = setInterval(() => {
-                if (index < responseText.length) {
-                    llmBubbleDiv.innerHTML += responseText[index];
+                if (chunkIndex < responseChunks.length) {
+                    const chunk = responseChunks[chunkIndex];
+                    const llmBubbleDiv = document.createElement('div');
+                    llmBubbleDiv.classList.add('bubble');
+                    llmBubbleDiv.innerHTML = chunk;
+                    llmMessageDiv.appendChild(llmBubbleDiv);
                     messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                    index++;
+                    chunkIndex++;
                 } else {
                     clearInterval(interval);
                     llmMessageDiv.removeChild(loadingCircle);
+                    isGeneratingResponse = false;
+                    document.getElementById('userInput').disabled = false;
+                    document.getElementById('userInput').focus();
                 }
-            }, 50);
+            }, 1000);
         }
 
         function resizeTextarea(textarea) {
