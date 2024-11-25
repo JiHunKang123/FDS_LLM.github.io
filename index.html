@@ -196,13 +196,31 @@
             const frequencyPenalty = document.getElementById('frequencyPenalty').value;
             const presencePenalty = document.getElementById('presencePenalty').value;
             
-            // Mock response for the demo (Replace with actual API call if needed)
             if(userInput) {
-                responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div><div><strong>LLM:</strong> This is a demo response from the LLM with temperature: ${temperature}, max tokens: ${maxTokens}, top P: ${topP}, frequency penalty: ${frequencyPenalty}, presence penalty: ${presencePenalty}.</div><hr>`;
+                responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div>`;
+                simulateStreamingResponse(responseDiv, `This is a streaming response from the LLM with temperature: ${temperature}, max tokens: ${maxTokens}, top P: ${topP}, frequency penalty: ${frequencyPenalty}, presence penalty: ${presencePenalty}.`);
                 document.getElementById('userInput').value = '';
             } else {
                 responseDiv.innerHTML += "<div>Please enter a question.</div><hr>";
             }
+        }
+
+        function simulateStreamingResponse(responseDiv, fullResponse) {
+            let index = 0;
+            const responseElement = document.createElement('div');
+            responseElement.innerHTML = `<strong>LLM:</strong> `;
+            responseDiv.appendChild(responseElement);
+
+            function streamCharacter() {
+                if (index < fullResponse.length) {
+                    responseElement.innerHTML += fullResponse[index];
+                    index++;
+                    setTimeout(streamCharacter, 50); // Simulate streaming delay
+                } else {
+                    responseDiv.innerHTML += "<hr>";
+                }
+            }
+            streamCharacter();
         }
 
         // Update displayed values when sliders change
