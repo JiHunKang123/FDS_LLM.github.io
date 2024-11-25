@@ -185,9 +185,10 @@
             <button onclick="startChat()">Submit</button>
         </div>
         <div class="container" id="chatContainer">
-            <h1>ChatGPT-like LLM Demo</h1>
+            /*<h1>ChatGPT-like LLM Demo</h1>*/
             <div id="response"></div>
-            <div id="externalScrollbar"></div> <!-- 새로 추가된 스크롤바 컨테이너 -->
+        </div>
+        <div>
             <input type="text" id="userInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') getResponse()" disabled>
             <br>
             <button onclick="getResponse()" disabled>Submit</button>
