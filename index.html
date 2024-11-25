@@ -99,6 +99,7 @@
             padding: 10px;
             border-radius: 10px;
             word-wrap: break-word;
+            position: relative;
         }
         .user .bubble {
             background-color: #10a37f;
@@ -107,6 +108,22 @@
         .llm .bubble {
             background-color: #e0e0e0;
             color: #333;
+        }
+        .loading-circle {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         textarea {
             flex: 1;
@@ -199,6 +216,7 @@
                 document.querySelector('.initial-view').style.display = 'none';
                 document.getElementById('chatContainer').style.display = 'flex';
                 addMessage('user', initialUserInput);
+                generateLLMResponse();
             }
         }
 
@@ -219,16 +237,47 @@
                 if (sender === 'user' && !messageText) {
                     document.getElementById('userInput').value = '';
                     resizeTextarea(document.getElementById('userInput'));
-                    // Simulate LLM response
-                    setTimeout(() => addMessage('llm', 'This is a simulated response from the LLM.'), 1000);
+                    // Trigger LLM response
+                    generateLLMResponse();
                 }
             }
+        }
+
+        function generateLLMResponse() {
+            // Simulate loading animation
+            const messagesDiv = document.getElementById('messages');
+            const loadingCircle = document.createElement('div');
+            loadingCircle.classList.add('loading-circle');
+            messagesDiv.appendChild(loadingCircle);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Simulate streaming LLM response
+            const responseText = "This is a simulated response from the LLM, streaming line by line.";
+            let index = 0;
+            const llmMessageDiv = document.createElement('div');
+            llmMessageDiv.classList.add('message', 'llm');
+            const llmBubbleDiv = document.createElement('div');
+            llmBubbleDiv.classList.add('bubble');
+            llmMessageDiv.appendChild(llmBubbleDiv);
+            messagesDiv.appendChild(llmMessageDiv);
+
+            const interval = setInterval(() => {
+                if (index < responseText.length) {
+                    llmBubbleDiv.innerHTML += responseText[index];
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    messagesDiv.removeChild(loadingCircle);
+                }
+            }, 50);
         }
 
         function resizeTextarea(textarea) {
             textarea.style.height = 'auto';
             textarea.style.height = textarea.scrollHeight + 'px';
         }
+
         function insertExample(inputId) {
             const inputElement = document.getElementById(inputId);
             if (inputId === 'initialUserInput') {
