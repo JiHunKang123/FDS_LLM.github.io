@@ -191,8 +191,7 @@
                 messageDiv.classList.add('message', sender);
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.classList.add('bubble');
-                bubbleDiv.textContent = userInput.replace(/
-/g, '<br>');
+                bubbleDiv.textContent = userInput.replace(/\n/g, '<br>');
                 messageDiv.appendChild(bubbleDiv);
                 messagesDiv.appendChild(messageDiv);
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
