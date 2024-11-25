@@ -109,12 +109,12 @@
         textarea {
             flex: 1;
             padding: 10px;
-            margin-right: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 10px;
+            border: 1px solid #fff;
             resize: none;
             overflow: hidden;
             min-height: 40px;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -191,7 +191,6 @@
                 messageDiv.classList.add('message', sender);
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.classList.add('bubble');
-                //bubbleDiv.textContent = userInput.replace(/(?:\n|\r|\r\n)/g, '<br />');
                 bubbleDiv.innerHTML = userInput.replace(/\n/g, '<br>');
                 messageDiv.appendChild(bubbleDiv);
                 messagesDiv.appendChild(messageDiv);
