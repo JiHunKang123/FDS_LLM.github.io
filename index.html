@@ -121,6 +121,7 @@
             font-size: 16px;
         }
         .initial-input {
+            width: 100%;
             margin-top: 20px;
             padding: 10px;
             border-radius: 20px;
@@ -157,7 +158,6 @@
             <img src="demo_logo.png" alt="LLM Logo" style="width: 500px; margin-bottom: 20px;">
             <input type="text" id="initialUserInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') startChat()" class="initial-input">
             <br>
-            <button onclick="startChat()">Submit</button>
         </div>
         <div class="container" id="chatContainer">
             <div class="top-section" id="messages"></div>
