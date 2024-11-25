@@ -108,9 +108,8 @@
         .llm .bubble {
             background-color: #e0e0e0;
             color: #333;
-            top: 0px;
-            left: 0px;
-            margin-bottom: 10px;
+            position: relative;
+            bottom: 0;
         }
         .loading-circle {
             width: 20px;
@@ -258,9 +257,9 @@
             const messagesDiv = document.getElementById('messages');
             const llmMessageDiv = document.createElement('div');
             llmMessageDiv.classList.add('message', 'llm');
-            //const loadingCircle = document.createElement('div');
-            //loadingCircle.classList.add('loading-circle');
-            //llmMessageDiv.appendChild(loadingCircle);
+            const loadingCircle = document.createElement('div');
+            loadingCircle.classList.add('loading-circle');
+            llmMessageDiv.appendChild(loadingCircle);
             messagesDiv.appendChild(llmMessageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
@@ -283,7 +282,7 @@
                     chunkIndex++;
                 } else {
                     clearInterval(interval);
-                    //llmMessageDiv.removeChild(loadingCircle);
+                    llmMessageDiv.removeChild(loadingCircle);
                     isGeneratingResponse = false;
                     document.getElementById('userInput').disabled = false;
                     document.getElementById('userInput').focus();
