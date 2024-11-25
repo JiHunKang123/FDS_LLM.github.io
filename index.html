@@ -277,6 +277,7 @@
                     llmBubbleDiv.classList.add('bubble');
                     llmBubbleDiv.innerHTML = chunk;
                     //llmMessageDiv.appendChild(llmBubbleDiv);
+                    messagesDiv.appendChild(llmMessageDiv);
                     messagesDiv.scrollTop = messagesDiv.scrollHeight;
                     chunkIndex++;
                 } else {
