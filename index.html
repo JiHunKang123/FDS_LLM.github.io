@@ -156,11 +156,13 @@
     <div class="main">
         <div class="initial-view">
             <img src="demo_logo.png" alt="LLM Logo" style="width: 500px; margin-bottom: 20px;">
+            <button onclick="insertExample('initialUserInput')" style="margin-bottom: 10px;">Example Question</button>
             <input type="text" id="initialUserInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') startChat()" class="initial-input">
             <br>
         </div>
         <div class="container" id="chatContainer">
             <div class="top-section" id="messages"></div>
+            <button onclick="insertExample('userInput')" style="margin-bottom: 10px;">Example Message</button>
             <div class="bottom-section">
                 <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
             </div>
@@ -224,6 +226,15 @@
         function resizeTextarea(textarea) {
             textarea.style.height = 'auto';
             textarea.style.height = textarea.scrollHeight + 'px';
+        }
+        function insertExample(inputId) {
+            const inputElement = document.getElementById(inputId);
+            if (inputId === 'initialUserInput') {
+                inputElement.value = 'What is the best way to detect fraud in bank transactions?';
+            } else if (inputId === 'userInput') {
+                inputElement.value = 'Can you provide more information on detecting anomalies?';
+            }
+            inputElement.focus();
         }
     </script>
 </body>
