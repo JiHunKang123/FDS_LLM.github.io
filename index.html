@@ -20,12 +20,27 @@
             background-color: #f0f0f0;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
         }
         .sidebar h2 {
             color: #333;
         }
         .sidebar p {
             color: #555;
+        }
+        .sidebar label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        .sidebar input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
         }
         .main {
             flex: 1;
@@ -86,6 +101,16 @@
     <div class="sidebar">
         <h2>LLM Demo Navigation</h2>
         <p>This is a demo sidebar, similar to ChatGPT's interface.</p>
+        <label for="temperature">Temperature:</label>
+        <input type="number" id="temperature" name="temperature" min="0" max="1" step="0.1" value="0.7">
+        <label for="maxTokens">Max Tokens:</label>
+        <input type="number" id="maxTokens" name="maxTokens" min="1" max="2048" step="1" value="150">
+        <label for="topP">Top P:</label>
+        <input type="number" id="topP" name="topP" min="0" max="1" step="0.1" value="0.9">
+        <label for="frequencyPenalty">Frequency Penalty:</label>
+        <input type="number" id="frequencyPenalty" name="frequencyPenalty" min="0" max="2" step="0.1" value="0.0">
+        <label for="presencePenalty">Presence Penalty:</label>
+        <input type="number" id="presencePenalty" name="presencePenalty" min="0" max="2" step="0.1" value="0.0">
     </div>
     <div class="main">
         <div class="container">
@@ -102,10 +127,15 @@
         function getResponse() {
             const userInput = document.getElementById('userInput').value;
             const responseDiv = document.getElementById('response');
+            const temperature = document.getElementById('temperature').value;
+            const maxTokens = document.getElementById('maxTokens').value;
+            const topP = document.getElementById('topP').value;
+            const frequencyPenalty = document.getElementById('frequencyPenalty').value;
+            const presencePenalty = document.getElementById('presencePenalty').value;
             
             // Mock response for the demo (Replace with actual API call if needed)
             if(userInput) {
-                responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div><div><strong>LLM:</strong> This is a demo response from the LLM.</div><hr>`;
+                responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div><div><strong>LLM:</strong> This is a demo response from the LLM with temperature: ${temperature}, max tokens: ${maxTokens}, top P: ${topP}, frequency penalty: ${frequencyPenalty}, presence penalty: ${presencePenalty}.</div><hr>`;
             } else {
                 responseDiv.innerHTML += "<div>Please enter a question.</div><hr>";
             }
