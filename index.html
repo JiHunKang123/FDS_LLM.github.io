@@ -17,7 +17,7 @@
         }
         .sidebar {
             width: 300px;
-            background-color: #f0f0f0;
+            background-color: #d3d3d3;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
@@ -34,25 +34,12 @@
             font-weight: bold;
             color: #333;
         }
-        .sidebar input[type="number"], .sidebar select, .sidebar input[type="range"] {
+        .sidebar input[type="range"], .sidebar select {
             width: 100%;
-            padding: 8px;
+            padding: 5px;
             margin-top: 5px;
-            border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #fff;
-        }
-        .sidebar input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            height: 10px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.9;
-            transition: opacity 0.2s;
-        }
-        .sidebar input[type="range"]:hover {
-            opacity: 1;
         }
         .main {
             flex: 1;
@@ -60,93 +47,71 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #ffffff;
-            /*padding: 40px;*/
-            position: relative; /*new*/
-        }
-        .container {
-            width: 700px; /*100%*/
-            height: 800px;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box; /*new*/
+            padding: 40px;
+            position: relative;
         }
         .initial-view {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        h1 {
+        #chatContainer {
+            width: 700px;
+            max-width: 100%;
+            height: 600px;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-end;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message.llm {
+            justify-content: flex-start;
+        }
+        .bubble {
+            max-width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .user .bubble {
+            background-color: #10a37f;
+            color: #fff;
+        }
+        .llm .bubble {
+            background-color: #e0e0e0;
             color: #333;
         }
         input[type="text"] {
-            width: 600px;
-            padding: 12px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            color: #333;
+            width: calc(100% - 90px);
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
         button {
-            background-color: #10a37f;
-            color: #ffffff;
-            padding: 12px 24px;
-            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
             border: none;
-            border-radius: 8px;
+            background-color: #10a37f;
+            color: #fff;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #0e8b6a;
-        }
-        #response {
-            margin-top: 20px; /*30px*/
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            color: #333;
-            text-align: left;
-            /*max-height: calc(100% - 100px);*/
-            width: 100%; /*600px*/
-            height: calc(100% - 200px); /*100%*/
-            overflow: auto; /*-y auto*/
-            box-sizing: border-box; /*new*/
-            position: relative; /*new*/
-        }
-
-        /* 외부 스크롤바 */
-        #externalScrollbar {
-            position: fixed;
-            right: 0;
-            top: 0;
-            height: 100vh;
-            width: 16px;
-            overflow-y: auto;
-            background: transparent;
-        }
-        
-        #externalScrollbar::-webkit-scrollbar {
-            width: 16px;
-        }
-        
-        #externalScrollbar::-webkit-scrollbar-track {
-            background: #f0f0f0;
-        }
-        
-        #externalScrollbar::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 8px;
-        }
-        
-        #externalScrollbar::-webkit-scrollbar-thumb:hover {
-            background: #555;
         }
     </style>
 </head>
@@ -170,12 +135,6 @@
         <label for="topP">Top P:</label>
         <input type="range" id="topP" name="topP" min="0" max="1" step="0.1" value="0.9">
         <span id="topPValue">0.9</span>
-        <label for="frequencyPenalty">Frequency Penalty:</label>
-        <input type="range" id="frequencyPenalty" name="frequencyPenalty" min="0" max="2" step="0.1" value="0.0">
-        <span id="frequencyPenaltyValue">0.0</span>
-        <label for="presencePenalty">Presence Penalty:</label>
-        <input type="range" id="presencePenalty" name="presencePenalty" min="0" max="2" step="0.1" value="0.0">
-        <span id="presencePenaltyValue">0.0</span>
     </div>
     <div class="main">
         <div class="initial-view">
@@ -185,16 +144,11 @@
             <button onclick="startChat()">Submit</button>
         </div>
         <div class="container" id="chatContainer">
-            /*<h1>ChatGPT-like LLM Demo</h1>*/
-            <div id="response"></div>
-        </div>
-        <div>
-            <input type="text" id="userInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') getResponse()" disabled>
-            <br>
-            <button onclick="getResponse()" disabled>Submit</button>
+            <div id="messages"></div>
+            <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key === 'Enter') addMessage()">
+            <button onclick="addMessage()">Send</button>
         </div>
     </div>
-
     <script>
         function updateTaskDescription() {
             const task = document.getElementById('task').value;
@@ -217,91 +171,31 @@
             if (initialUserInput) {
                 document.querySelector('.initial-view').style.display = 'none';
                 document.getElementById('chatContainer').style.display = 'flex';
-                document.getElementById('userInput').value = initialUserInput;
-                getResponse();
+                addMessage('user', initialUserInput);
             }
         }
 
-        function getResponse() {
-            const userInput = document.getElementById('userInput').value;
-            const responseDiv = document.getElementById('response');
-            const temperature = document.getElementById('temperature').value;
-            const maxTokens = document.getElementById('maxTokens').value;
-            const topP = document.getElementById('topP').value;
-            const frequencyPenalty = document.getElementById('frequencyPenalty').value;
-            const presencePenalty = document.getElementById('presencePenalty').value;
-            
-            if(userInput) {
-                document.getElementById('userInput').disabled = true;
-                document.querySelector('#chatContainer button').disabled = true;
-                responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div>`;
-                simulateStreamingResponse(responseDiv, `This is a streaming response from the LLM with temperature: ${temperature}, max tokens: ${maxTokens}, top P: ${topP}, frequency penalty: ${frequencyPenalty}, presence penalty: ${presencePenalty}.`);
-                document.getElementById('userInput').value = '';
-            } else {
-                responseDiv.innerHTML += "<div>Please enter a question.</div><hr>";
-            }
-        }
+        function addMessage(sender = 'user', messageText = null) {
+            const messagesDiv = document.getElementById('messages');
+            const userInput = messageText || document.getElementById('userInput').value;
 
+            if (userInput.trim()) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', sender);
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.classList.add('bubble');
+                bubbleDiv.textContent = userInput;
+                messageDiv.appendChild(bubbleDiv);
+                messagesDiv.appendChild(messageDiv);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-        
-        // scrolll
-        const responseDiv = document.getElementById('response');
-        const externalScrollbar = document.getElementById('externalScrollbar');
-        
-        // 외부 스크롤바와 responseDiv의 높이를 동기화
-        function updateScrollbar() {
-            // 외부 스크롤바의 높이를 responseDiv 내용의 높이와 일치시킴
-            externalScrollbar.style.height = `${responseDiv.scrollHeight}px`;
-        
-            // 외부 스크롤바 내부에 스크롤 가능한 가짜 콘텐츠 생성
-            externalScrollbar.innerHTML = '<div style="height: ' + responseDiv.scrollHeight + 'px;"></div>';
-        }
-        
-        // 외부 스크롤바 동기화
-        externalScrollbar.addEventListener('scroll', () => {
-            responseDiv.scrollTop = externalScrollbar.scrollTop;
-        });
-
-    
-        
-        function simulateStreamingResponse(responseDiv, fullResponse) {
-            let index = 0;
-            const responseElement = document.createElement('div');
-            responseElement.innerHTML = `<strong>LLM:</strong> `;
-            responseDiv.appendChild(responseElement);
-
-            function streamCharacter() {
-                if (index < fullResponse.length) {
-                    responseElement.innerHTML += fullResponse[index];
-                    index++;
-                    setTimeout(streamCharacter, 10); // Simulate streaming delay
-                } else {
-                    responseDiv.innerHTML += "<hr>";
-                    document.getElementById('userInput').disabled = false;
-                    document.querySelector('#chatContainer button').disabled = false;
+                if (sender === 'user' && !messageText) {
+                    document.getElementById('userInput').value = '';
+                    // Simulate LLM response
+                    setTimeout(() => addMessage('llm', 'This is a simulated response from the LLM.'), 1000);
                 }
-                //responseDiv.scrollTop = responseDiv.scrollHeight;
-                updateScrollbar();
             }
-            streamCharacter();
         }
-
-        // Update displayed values when sliders change
-        document.getElementById('temperature').addEventListener('input', function() {
-            document.getElementById('temperatureValue').textContent = this.value;
-        });
-        document.getElementById('maxTokens').addEventListener('input', function() {
-            document.getElementById('maxTokensValue').textContent = this.value;
-        });
-        document.getElementById('topP').addEventListener('input', function() {
-            document.getElementById('topPValue').textContent = this.value;
-        });
-        document.getElementById('frequencyPenalty').addEventListener('input', function() {
-            document.getElementById('frequencyPenaltyValue').textContent = this.value;
-        });
-        document.getElementById('presencePenalty').addEventListener('input', function() {
-            document.getElementById('presencePenaltyValue').textContent = this.value;
-        });
     </script>
 </body>
 </html>
