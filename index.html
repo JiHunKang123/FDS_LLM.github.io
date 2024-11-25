@@ -297,7 +297,7 @@
                     isGeneratingResponse = false;
                     document.getElementById('userInput').disabled = false;
                     document.getElementById('userInput').focus();
-                }
+                } llmBubbleDiv.removeChild(loadingCircle);
             }, 1000);
         }
 
