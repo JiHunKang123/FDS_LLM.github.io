@@ -279,6 +279,11 @@
                     //llmMessageDiv.appendChild(llmBubbleDiv);
                     //messagesDiv.scrollTop = messagesDiv.scrollHeight;
                     llmBubbleDiv.classList.add('message', 'llm');
+
+                    const loadingCircle = document.createElement('div');
+                    loadingCircle.classList.add('loading-circle');
+                    llmBubbleDiv.appendChild(loadingCircle);
+                    
                     const bubbleDiv = document.createElement('div');
                     bubbleDiv.classList.add('bubble');
                     bubbleDiv.innerHTML = chunk;
