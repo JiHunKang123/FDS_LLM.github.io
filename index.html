@@ -116,12 +116,32 @@
             /*max-height: calc(100% - 100px);*/
             max-width: 700px; /*new*/
             width: 100%; /*600px*/
-            height: calc(100% - 100px); /*100%*/
+            height: calc(100% - 200px); /*100%*/
             overflow-y: auto;
             box-sizing: border-box; /*new*/
-            position: absolute; /*new*/
-            top: 20px; /*new*/
-            right: 0; /*new*/
+            position: relative; /*new*/
+        }
+
+        /* 스크롤 바 스타일링 */
+        #response::-webkit-scrollbar {
+            width: 16px; /* 스크롤 바의 너비를 설정 */
+            position: fixed; /* 스크롤 바를 화면 끝에 고정시키기 위한 속성 */
+        }
+        
+        /* 스크롤 바 트랙 */
+        #response::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+        
+        /* 스크롤 바 핸들 */
+        #response::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 8px;
+        }
+        
+        /* 스크롤 바 핸들:hover */
+        #response::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
