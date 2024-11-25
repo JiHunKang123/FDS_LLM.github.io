@@ -114,34 +114,37 @@
             color: #333;
             text-align: left;
             /*max-height: calc(100% - 100px);*/
-            max-width: 700px; /*new*/
             width: 100%; /*600px*/
             height: calc(100% - 200px); /*100%*/
-            overflow-y: auto;
+            overflow-y: hidden; /*auto*/
             box-sizing: border-box; /*new*/
             position: relative; /*new*/
         }
 
-        /* 스크롤 바 스타일링 */
-        #response::-webkit-scrollbar {
-            width: 16px; /* 스크롤 바의 너비를 설정 */
-            position: fixed; /* 스크롤 바를 화면 끝에 고정시키기 위한 속성 */
-            right: 0px;
+        /* 외부 스크롤바 */
+        #externalScrollbar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 16px;
+            background: transparent;
         }
         
-        /* 스크롤 바 트랙 */
-        #response::-webkit-scrollbar-track {
+        #externalScrollbar::-webkit-scrollbar {
+            width: 16px;
+        }
+        
+        #externalScrollbar::-webkit-scrollbar-track {
             background: #f0f0f0;
         }
         
-        /* 스크롤 바 핸들 */
-        #response::-webkit-scrollbar-thumb {
+        #externalScrollbar::-webkit-scrollbar-thumb {
             background: #888;
             border-radius: 8px;
         }
         
-        /* 스크롤 바 핸들:hover */
-        #response::-webkit-scrollbar-thumb:hover {
+        #externalScrollbar::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
     </style>
@@ -183,6 +186,7 @@
         <div class="container" id="chatContainer">
             <h1>ChatGPT-like LLM Demo</h1>
             <div id="response"></div>
+            <div id="externalScrollbar"></div> <!-- 새로 추가된 스크롤바 컨테이너 -->
             <input type="text" id="userInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') getResponse()" disabled>
             <br>
             <button onclick="getResponse()" disabled>Submit</button>
@@ -236,6 +240,25 @@
             }
         }
 
+
+        
+        // scrolll
+        const responseDiv = document.getElementById('response');
+        const externalScrollbar = document.getElementById('externalScrollbar');
+        
+        // 외부 스크롤바 동기화
+        externalScrollbar.addEventListener('scroll', () => {
+            responseDiv.scrollTop = externalScrollbar.scrollTop;
+        });
+        
+        // responseDiv 내용이 변경될 때 외부 스크롤바 업데이트
+        function updateScrollbar() {
+            externalScrollbar.scrollTop = responseDiv.scrollTop;
+            externalScrollbar.style.height = `${responseDiv.scrollHeight}px`;
+        }
+
+    
+        
         function simulateStreamingResponse(responseDiv, fullResponse) {
             let index = 0;
             const responseElement = document.createElement('div');
@@ -246,13 +269,14 @@
                 if (index < fullResponse.length) {
                     responseElement.innerHTML += fullResponse[index];
                     index++;
-                    setTimeout(streamCharacter, 50); // Simulate streaming delay
+                    setTimeout(streamCharacter, 10); // Simulate streaming delay
                 } else {
                     responseDiv.innerHTML += "<hr>";
                     document.getElementById('userInput').disabled = false;
                     document.querySelector('#chatContainer button').disabled = false;
                 }
-                responseDiv.scrollTop = responseDiv.scrollHeight;
+                //responseDiv.scrollTop = responseDiv.scrollHeight;
+                updateScrollbar();
             }
             streamCharacter();
         }
