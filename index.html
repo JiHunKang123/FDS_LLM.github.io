@@ -62,7 +62,6 @@
             justify-content: center;
             background-color: #ffffff;
             padding: 40px;
-            position: relative;
         }
         .container {
             width: 700px;
@@ -74,8 +73,6 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            position: relative;
         }
         .initial-view {
             display: flex;
@@ -115,18 +112,8 @@
             border-radius: 8px;
             color: #333;
             text-align: left;
-            max-height: 600px;
+            max-height: 300px;
             overflow-y: auto;
-            flex-grow: 1;
-            width: 100%;
-        }
-        .input-container {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: auto;
-            padding-top: 20px;
         }
     </style>
 </head>
@@ -158,7 +145,7 @@
         <span id="presencePenaltyValue">0.0</span>
     </div>
     <div class="main">
-        <div class="initial-view" id="initialView">
+        <div class="initial-view">
             <img src="logo.png" alt="LLM Logo" style="width: 150px; margin-bottom: 20px;">
             <input type="text" id="initialUserInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') startChat()">
             <br>
@@ -167,10 +154,9 @@
         <div class="container" id="chatContainer">
             <h1>ChatGPT-like LLM Demo</h1>
             <div id="response"></div>
-            <div class="input-container">
-                <input type="text" id="userInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') getResponse()" disabled>
-                <button onclick="getResponse()" disabled>Submit</button>
-            </div>
+            <input type="text" id="userInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') getResponse()" disabled>
+            <br>
+            <button onclick="getResponse()" disabled>Submit</button>
         </div>
     </div>
 
@@ -193,12 +179,10 @@
 
         function startChat() {
             const initialUserInput = document.getElementById('initialUserInput').value;
-            if (initialUserInput.trim() !== "") {
-                document.getElementById('initialView').style.display = 'none';
+            if (initialUserInput) {
+                document.querySelector('.initial-view').style.display = 'none';
                 document.getElementById('chatContainer').style.display = 'flex';
                 document.getElementById('userInput').value = initialUserInput;
-                document.getElementById('userInput').disabled = false;
-                document.querySelector('#chatContainer button').disabled = false;
                 getResponse();
             }
         }
@@ -212,7 +196,7 @@
             const frequencyPenalty = document.getElementById('frequencyPenalty').value;
             const presencePenalty = document.getElementById('presencePenalty').value;
             
-            if(userInput.trim() !== "") {
+            if(userInput) {
                 document.getElementById('userInput').disabled = true;
                 document.querySelector('#chatContainer button').disabled = true;
                 responseDiv.innerHTML += `<div><strong>You:</strong> "${userInput}"</div>`;
@@ -245,4 +229,20 @@
 
         // Update displayed values when sliders change
         document.getElementById('temperature').addEventListener('input', function() {
-            document.getElementById('temperatureValue
+            document.getElementById('temperatureValue').textContent = this.value;
+        });
+        document.getElementById('maxTokens').addEventListener('input', function() {
+            document.getElementById('maxTokensValue').textContent = this.value;
+        });
+        document.getElementById('topP').addEventListener('input', function() {
+            document.getElementById('topPValue').textContent = this.value;
+        });
+        document.getElementById('frequencyPenalty').addEventListener('input', function() {
+            document.getElementById('frequencyPenaltyValue').textContent = this.value;
+        });
+        document.getElementById('presencePenalty').addEventListener('input', function() {
+            document.getElementById('presencePenaltyValue').textContent = this.value;
+        });
+    </script>
+</body>
+</html>
