@@ -147,14 +147,14 @@
     <div class="main">
         <div class="initial-view">
             <img src="logo.png" alt="LLM Logo" style="width: 150px; margin-bottom: 20px;">
-            <input type="text" id="initialUserInput" placeholder="Type your question here...">
+            <input type="text" id="initialUserInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') startChat()">
             <br>
             <button onclick="startChat()">Submit</button>
         </div>
         <div class="container" id="chatContainer">
             <h1>ChatGPT-like LLM Demo</h1>
             <div id="response"></div>
-            <input type="text" id="userInput" placeholder="Type your question here...">
+            <input type="text" id="userInput" placeholder="Type your question here..." onkeydown="if(event.key === 'Enter') getResponse()">
             <br>
             <button onclick="getResponse()">Submit</button>
         </div>
