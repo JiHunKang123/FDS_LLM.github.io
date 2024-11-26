@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM Demo</title>
+    <title>ASML&KnC FDS Demo</title>
     <link rel="shortcut icon" type="image/x-icon" href="logo.ico">
     <link rel="apple-touch-icon" sizes="64x64" href="favicon_logo.png">
     <link rel="stylesheet" href="styles.css">
@@ -159,11 +159,10 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2>LLM Demo Navigation</h2>
-        <p>This is a demo sidebar, similar to ChatGPT's interface.</p>
+        <h2>ASML & KnC FDS Demo</h2>
+        <p>본 웹페이지는 금융사기탐지(FDS, Fraud Detection System) 시연을 위한 데모 페이지입니다. </p>
         <label for="task">Select Task:</label>
         <select id="task" name="task" onchange="updateTaskDescription()">
-            <option value="">--Select a task--</option>
             <option value="BAF">BAF</option>
             <option value="CCTFD">CCTFD</option>
         </select>
@@ -199,10 +198,10 @@
             
             switch (task) {
                 case 'BAF':
-                    taskDescription.textContent = "BAF: This task is related to Bank Account Fraud detection.";
+                    taskDescription.textContent = "BAF(Bank Account Fraud detection) task는 개인의 연수입, 집주소 유효성 등 30개의 특징을 바탕으로 사기 여부를 탐지하는 task입니다.";
                     break;
                 case 'CCTFD':
-                    taskDescription.textContent = "CCTFD: This task is related to Credit Card Transaction Fraud Detection.";
+                    taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 신용카드 거래 기록을 바탕으로 사기 거래를 탐지하는 task입니다.";
                     break;
                 default:
                     taskDescription.textContent = "";
