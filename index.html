@@ -14,6 +14,7 @@
         <p>본 웹페이지는 금융사기탐지(FDS, Fraud Detection System) 시연을 위한 데모 페이지입니다. </p>
         <label for="task">Select Task: </label>
         <select id="task" name="task" onchange="updateTaskDescription()">
+            <option value="">Task를 선택하세요.</option>
             <option value="BAF">BAF</option>
             <option value="CCTFD">CCTFD</option>
         </select>
@@ -88,6 +89,8 @@
     }
     .sidebar input[type="range"] {
         width: 80%;
+        display: flex;
+        align-items: center;
         margin-top: 5px;
         border-radius: 5px;
         background-color: #ffffff;
