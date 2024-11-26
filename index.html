@@ -330,13 +330,13 @@
         
         switch (task) {
             case 'BAF':
-                taskDescription.textContent = "BAF(Bank Account Fraud detection) task는 개인의 연수입, 집주소 유효성 등 30개의 특징을 바탕으로 사기 여부를 탐지하는 task입니다.";
+                taskDescription.textContent = "BAF(Bank Account Fraud detection) task는 개인의 연 소득, 연령대, 주소 유효성, 고용 상태 등 30가지 특징을 기반으로 대상 계좌의 사기 여부를 탐지하는 task입니다.";
                 break;
             case 'CCTFD':
-                taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 신용카드 거래 기록을 바탕으로 사기 거래를 탐지하는 task입니다.";
+                taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 다양한 상인들과 이루어진 신용카드 거래 기록을 기반으로 사기 거래를 탐지하는 task입니다.";
                 break;
             default:
-                taskDescription.textContent = "";
+                taskDescription.textContent = "수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.";
         }
     }
 
@@ -346,16 +346,16 @@
         
         switch (agent) {
             case 'Ollama':
-                agentDescription.textContent = "Meta의 Llama 3.1 8B 모델을 LoRA 학습을 시킨 모델 가속화 프레임워크";
+                agentDescription.textContent = "Ollama는 로컬 환경에서 LLM을 손쉽게 실행할 수 있도록 지원하는 오픈소스 플랫폼입니다. 여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
                 break;
             case 'vLLM':
-                agentDescription.textContent = "Meta의 Llama 3.1 8B 모델에 가속화 프레임워크";
+                agentDescription.textContent = "vLLM은 LLM의 추론과 서비스를 효율적으로 수행하기 위한 오픈소스 라이브러리입니다. 여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
                 break;
             case 'OpenAI':
-                agentDescription.textContent = "OpenAI의 GPT-4 mini";
+                agentDescription.textContent = "OpenAI의 GPT-4 mini 모델이 적용됩니다.";
                 break;
             default:
-                agentDescription.textContent = "";
+                agentDescription.textContent = "지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.";
         }
     }
 
