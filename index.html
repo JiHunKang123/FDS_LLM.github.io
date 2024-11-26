@@ -15,14 +15,13 @@
             <p style="font-size: 12pt; font-weight: normal; color: #000000;">본 웹페이지는 금융사기탐지(FDS, Fraud Detection System) 시연을 위한 데모 페이지입니다.</p>
         </div>
         <div class="task_sel">
-            <label for="task">Task</label>
-            <p id="taskDescription" style="margin-top: 10px; color: #d0d0d0;"></p>
+            <label for="task">Task: </label>
             <select id="task" name="task" onchange="updateTaskDescription()">
                 <option value="">Task를 선택하세요.</option>
                 <option value="BAF">BAF</option>
                 <option value="CCTFD">CCTFD</option>
             </select>
-
+            <p id="taskDescription" style="margin-top: 10px; color: #d0d0d0;"></p>
         </div>
         <div class="agent_sel">
             <label for="agent">Toolkit: </label>
