@@ -60,7 +60,7 @@
         <div class="chatContainer" id="chatContainer" style="display: none;">
         </div>
         <div class="inputs-view">
-            <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." style="width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
+            <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." style="display: none; width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
         </div>
     </div>
 </body>
