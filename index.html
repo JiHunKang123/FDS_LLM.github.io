@@ -57,7 +57,7 @@
         <div class="input-view">
             <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." style="width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
         </div>
-        <div class="chatContainer" id="chatContainer">
+        <div class="chatContainer" id="chatContainer" style="display: none;">
         </div>
     </div>
 </body>
@@ -316,6 +316,11 @@
     function startChat() {
         const userInput = document.getElementById('initialUserInput').value;
         if (!userInput.trim()) return;
+                
+        // Hide initial-view and show chatContainer
+        document.querySelector('.initial-view').style.display = 'none';
+        document.getElementById('chatContainer').style.display = 'block';
+        
         addMessage('user', userInput);
         document.getElementById('initialUserInput').value = '';
         mockLLMResponse(userInput);
