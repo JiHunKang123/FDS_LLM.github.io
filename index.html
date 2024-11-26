@@ -12,8 +12,8 @@
     <div class="sidebar">
         <h2>ASML & KnC FDS Demo</h2>
         <p>본 웹페이지는 금융사기탐지(FDS, Fraud Detection System) 시연을 위한 데모 페이지입니다. </p>
-        <label for="task" class="task-label">Select Task: </label>
-        <select id="task" name="task" onchange="updateTaskDescription()" class="task-dropdown">
+        <label for="task">Select Task: </label>
+        <select id="task" name="task" onchange="updateTaskDescription()">
             <option value="BAF">BAF</option>
             <option value="CCTFD">CCTFD</option>
         </select>
@@ -73,13 +73,21 @@
         color: #000000;
     }
     .sidebar label {
-        display: block;
+        display: inline-block;
         margin-top: 15px;
         font-size: 14pt;
         font-weight: normal;
         color: #000000;
     }
-    .sidebar input[type="range"], .sidebar select {
+    .sidebar select {
+        display: inline-block;
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        border-radius: 5px;
+        background-color: #ffffff;
+    }
+    .sidebar input[type="range"] {
         width: 100%;
         padding: 5px;
         margin-top: 5px;
