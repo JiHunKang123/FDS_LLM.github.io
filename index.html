@@ -21,7 +21,7 @@
                 <option value="BAF">BAF</option>
                 <option value="CCTFD">CCTFD</option>
             </select>
-            <p id="taskDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200;">수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.</p>
+            <p id="taskDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre;">수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.</p>
         </div>
         <div class="agent_sel">
             <label for="agent">Toolkit: </label>
@@ -31,7 +31,7 @@
                 <option value="vLLM">vLLM</option>
                 <option value="OpenAI">OpenAI</option>
             </select>
-            <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200;">지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.</p>
+            <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre;">지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.</p>
         </div>
         <div class="temp_sel">
             <label for="temperature">Temperature: <span id="temperatureValue">0.7</span></label>
@@ -343,7 +343,7 @@
     function updateAgentDescription() {
         const agent = document.getElementById('agent').value;
         const agentDescription = document.getElementById('agentDescription');
-        agentDescription.setAttribute('style', 'white-space: pre;');
+
         switch (agent) {
             case 'Ollama':
                 agentDescription.textContent = "Ollama는 로컬 환경에서 LLM을 손쉽게 실행할 수 있도록 지원하는 오픈소스 플랫폼입니다.\n여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
