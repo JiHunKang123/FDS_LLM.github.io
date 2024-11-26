@@ -54,7 +54,7 @@
         <div class="initial-view">
             <img src="demo_logo.png" alt="LLM Logo" style="width: 500px;">
         </div>
-        <div style="flex-grow: 1; align-self: flex-end;">
+        <div style="flex-grow: 1; margin-top: auto;">
             <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." style="width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
         </div>
         <div class="chatHistory">
@@ -194,6 +194,7 @@
     }
     .initial-view {
         width: 100%;
+        height: auto;
         bottom: 0;
         display: flex;
         align-items: center;
