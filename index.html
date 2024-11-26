@@ -57,7 +57,8 @@
         <div class="input-view">
             <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." style="width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
         </div>
-        <div class="chatHistory">
+        <div class="container" id="chatContainer">
+            <div class="top-section" id="messages"></div>
         </div>
     </div>
 </body>
@@ -220,14 +221,6 @@
     #chatContainer .top-section {
         flex: 1;
         align-items: center;
-        overflow-y: auto;
-    }
-    #chatContainer .bottom-section {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        min-height: 100px;
-        bottom: 50px;
         overflow-y: auto;
     }
     #messages {
