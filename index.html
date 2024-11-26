@@ -12,6 +12,11 @@
     <div class="sidebar">
         <h2>ASML & KnC FDS Demo</h2>
         <p>본 웹페이지는 금융사기탐지(FDS, Fraud Detection System) 시연을 위한 데모 페이지입니다.</p>
+        <label for="task">Select Task:</label>
+        <select id="task" name="task" onchange="updateTaskDescription()">
+            <option value="BAF">BAF</option>
+            <option value="CCTFD">CCTFD</option>
+        </select>
     </div>
     <div class="main">
         <div class="initial-view">
@@ -40,7 +45,7 @@
     .sidebar {
         width: 20%;
         left: 0;
-        padding: 50px;
+        padding: 25px;
         background-color: #f0f0f0;
         border: 1px solid #d0d0d0;
         overflow-y: auto;
@@ -58,8 +63,9 @@
     .sidebar label {
         display: block;
         margin-top: 15px;
-        font-weight: bold;
-        color: #333;
+        font-size: 14pt;
+        font-weight: normal;
+        color: #000000;
     }
     .sidebar input[type="range"], .sidebar select {
         width: 100%;
@@ -72,4 +78,19 @@
 
 <!-- script.js -->
 <script>
+    function updateTaskDescription() {
+        const task = document.getElementById('task').value;
+        const taskDescription = document.getElementById('taskDescription');
+            
+        switch (task) {
+            case 'BAF':
+                taskDescription.textContent = "BAF(Bank Account Fraud detection) task는 개인의 연수입, 집주소 유효성 등 30개의 특징을 바탕으로 사기 여부를 탐지하는 task입니다.";
+                break;
+            case 'CCTFD':
+                taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 신용카드 거래 기록을 바탕으로 사기 거래를 탐지하는 task입니다.";
+                break;
+            default:
+                taskDescription.textContent = "";
+        }
+    }
 </script>
