@@ -59,6 +59,9 @@
         </div>
         <div class="chatContainer" id="chatContainer" style="display: none;">
         </div>
+        <div class="inputs-view">
+            <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." style="width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
+        </div>
     </div>
 </body>
 </html>
@@ -234,6 +237,13 @@
         margin-top: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    .inputs-view {
+        flex-grow: 1;
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .message {
         margin: 10px 0;
         display: flex;
@@ -323,7 +333,7 @@
         document.querySelector('.initial-view').style.display = 'none';
         document.querySelector('.input-view').style.display = 'none';
         document.getElementById('chatContainer').style.display = 'inline';
-        //document.querySelector('.input-view').style.display = 'inline';
+        document.querySelector('.inputs-view').style.display = 'inline';
         
         addMessage('user', userInput);
         document.getElementById('initialUserInput').value = '';
