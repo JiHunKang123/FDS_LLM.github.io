@@ -13,10 +13,13 @@
         <h2>ASML & KnC FDS Demo</h2>
         <p>본 웹페이지는 금융사기탐지(FDS, Fraud Detection System) 시연을 위한 데모 페이지입니다.</p>
         <label for="task">Select Task:</label>
-        <select id="task" name="task" onchange="updateTaskDescription()">
-            <option value="BAF">BAF</option>
-            <option value="CCTFD">CCTFD</option>
-        </select>
+        <div class="selectBox">
+            <button class="label">Task</button>
+            <ul class="optionList">
+                <li class="optionItem">FDS</li>
+                <li class="optionItem">CCTFD</li>
+            </ul>
+        </div>
     </div>
     <div class="main">
         <div class="initial-view">
@@ -33,6 +36,7 @@
 
 <!-- styles.css -->
 <style>
+    <!-- body -->
     body {
         font-family: Arial, Tahoma, Geneva, Verdana, sans-serif;
         background-color: #ffffff;
@@ -42,12 +46,14 @@
         height: 100vh;
         overflow: hidden;
     }
+    
+    <!-- sidebar -->
     .sidebar {
         width: 20%;
         left: 0;
         padding: 25px;
         background-color: #f0f0f0;
-        border: 1px solid #d0d0d0;
+        border-right: 1px solid #d0d0d0;
         overflow-y: auto;
     }
     .sidebar h2 {
@@ -73,6 +79,71 @@
         border-radius: 5px;
         background-color: #fff;
     }
+
+    <!-- selectBox -->
+    .selectBox * { box-sizing: border-box; }
+    .selectBox {
+        position: relative;
+        width: 150px;
+        height: 35px;
+        border-radius: 4px;
+        border: 1px solid #d0d0d0;
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+    .selectBox:after {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 35px;
+      background: lightcoral;
+    }
+    .selectBox .label {
+      display: flex;
+      align-items: center;
+      width: inherit;
+      height: inherit;
+      border: 0 none;
+      outline: 0 none;
+      padding-left: 15px;
+      background: transparent;
+      cursor: pointer;
+    }
+    .selectBox .optionList {
+      position: absolute; 
+      top: 28px;
+      left: 0;
+      width: 100%;
+      background: #f0f0f0;
+      color: #000000;
+      list-style-type: none;
+      padding: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      max-height: 0;
+      transition: .3s ease-in;
+    }
+    .selectBox.active .optionList {
+      max-height: 500px;
+    }
+    .selectBox .optionItem {
+      border-bottom: 1px dashed rgb(170, 72, 72);
+      padding: 5px 15px 5px;
+      transition: .1s;
+    }
+    .selectBox .optionItem:hover {
+      background-color: #d0d0d0;
+    }
+    .selectBox .optionItem:last-child {
+      border-bottom: 0 none;
+    }
+    .selectBox .optionList::-webkit-scrollbar {width: 6px;}
+    .selectBox .optionList::-webkit-scrollbar-track {background: transparent; }
+    .selectBox .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
+    .selectBox .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
 </style>
 
 <!-- script.js -->
@@ -92,4 +163,47 @@
                 taskDescription.textContent = "";
         }
     }
+
+    /* 화살표 함수 */
+    const label = document.querySelector('.label');
+    const options = document.querySelectorAll('.optionItem');
+    
+    // 클릭한 옵션의 텍스트를 라벨 안에 넣음
+    const handleSelect = (item) => {
+      label.parentNode.classList.remove('active');
+      label.innerHTML = item.textContent;
+    }
+    // 옵션 클릭시 클릭한 옵션을 넘김
+    options.forEach(option => {
+    	option.addEventListener('click', () => handleSelect(option))
+    })
+    
+    // 라벨을 클릭시 옵션 목록이 열림/닫힘
+    label.addEventListener('click', () => {
+      if(label.parentNode.classList.contains('active')) {
+      	label.parentNode.classList.remove('active');
+      } else {
+      	label.parentNode.classList.add('active');
+      }
+    })
+    /* 일반함수 */
+    const label = document.querySelector('.label');
+    const options = document.querySelectorAll('.optionItem');
+    // 클릭한 옵션의 텍스트를 라벨 안에 넣음
+    const handleSelect = function(item) {
+      label.innerHTML = item.textContent;
+      label.parentNode.classList.remove('active');
+    }
+    // 옵션 클릭시 클릭한 옵션을 넘김
+    options.forEach(function(option){
+      option.addEventListener('click', function(){handleSelect(option)})
+    })
+    // 라벨을 클릭시 옵션 목록이 열림/닫힘
+    label.addEventListener('click', function(){
+      if(label.parentNode.classList.contains('active')) {
+        label.parentNode.classList.remove('active');
+      } else {
+        label.parentNode.classList.add('active');
+      }
+    });
 </script>
