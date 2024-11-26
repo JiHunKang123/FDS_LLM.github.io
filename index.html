@@ -267,6 +267,6 @@
 
     function resizeTextarea(textarea) {
         textarea.style.height = 'auto';
-        textarea.style.height = calc(textarea.scrollHeight + 'px' - 16px);
+        textarea.style.height = calc(textarea.scrollHeight - 16) + 'px';
     }
 </script>
