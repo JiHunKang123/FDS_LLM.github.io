@@ -55,12 +55,12 @@
             <img src="demo_logo.png" alt="LLM Logo" style="width: 500px;">
         </div>
         <div class="input-view">
-            <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." style="width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
+            <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." style="width: 50%;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
         </div>
         <div class="chatContainer" id="chatContainer" style="display: none;">
         </div>
-        <div class="inputs-view">
-            <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." style="display: none; width: 660px;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
+        <div class="inputs-view" style="display: none;">
+            <textarea id="userInput" rows={1} placeholder="로그를 입력하세요." style="width: 50%;" oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); addMessage(); }"></textarea>
         </div>
     </div>
 </body>
@@ -232,10 +232,7 @@
         display: flex;
         overflow-y: auto;
         background-color: #f5f5f5;
-        padding: 10px;
         border-radius: 10px;
-        margin-top: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .inputs-view {
         flex-grow: 1;
