@@ -58,9 +58,8 @@
         <div class="chatContainer" id="chatContainer" style="display: none;">
         </div>
         <div class="example-buttons">
-            <button onclick="setExample('은행 계좌 사기 여부를 판단해 주세요.')">예제 1</button>
-            <button onclick="setExample('신용카드 거래가 정상인지 확인해 주세요.')">예제 2</button>
-            <button onclick="setExample('이 거래의 위험 수준을 평가해 주세요.')">예제 3</button>
+            <button onclick="setExample('정상 예제')">예제: 정상</button>
+            <button onclick="setExample('사기 예제')">예제: 사기</button>
         </div>
         <div class="input-view">
             <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
@@ -217,6 +216,8 @@
     .example-buttons button {
         margin-right: 5px;
         padding: 5px 10px;
+        width: 100px;
+        height: 50px;
         border: none;
         background-color: #007bff;
         color: #fff;
