@@ -58,8 +58,8 @@
         <div class="chatContainer" id="chatContainer" style="display: none;">
         </div>
         <div class="example-buttons">
-            <button onclick="setExample('정상 예제')">예제: 정상</button>
-            <button onclick="setExample('사기 예제')">예제: 사기</button>
+            <button onclick="setExample('정상 예제')" font-size: 12pt;>예제: 정상</button>
+            <button onclick="setExample('사기 예제')" font-size: 12pt;>예제: 사기</button>
         </div>
         <div class="input-view">
             <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); addMessage(); }"></textarea>
