@@ -350,7 +350,7 @@
         
         addMessage('user', userInput);
         document.getElementById('initialUserInput').value = '';
-        mockLLMResponse(userInput);
+        LLMResponse(userInput);
     }
 
     function addMessage(sender, text, isLoading = false) {
