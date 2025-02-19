@@ -8,6 +8,11 @@
     <link rel="apple-touch-icon" sizes="64x64" href="favicon_logo.png">
     <link rel="stylesheet" href="https://webfontworld.github.io/NanumSquare/NanumSquare.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- (1) GitHub Markdown CSS 로드 -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+    />
 </head>
 <body>
     <div class="sidebar">
@@ -278,6 +283,9 @@
         max-width: 70%;
         margin-left: 15%;
     }
+    .message.llm .markdown-body {
+        /* GitHub Markdown CSS로 h1~h6, p, code, etc. 스타일링 */
+    }
     .loadingCircle {
         width: 15px;
         height: 15px;
@@ -358,11 +366,24 @@
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}`;
         
+        //const messageContent = document.createElement('div');
+        //messageContent.className = 'messageContent';
+        //messageContent.textContent = text;
+        //messageDiv.appendChild(messageContent);
+
+        // 메시지 내용을 감쌀 div
         const messageContent = document.createElement('div');
         messageContent.className = 'messageContent';
+
+        // llm 메시지에는 GitHub Markdown 스타일을 적용하기 위해
+        // markdown-body 클래스를 추가해 둠.
+        if (sender === 'llm') {
+            messageContent.classList.add('markdown-body');
+        }
+        // 기본은 textContent만 일단 삽입 (로딩시 "응답 생성 중...")
         messageContent.textContent = text;
         messageDiv.appendChild(messageContent);
-
+        
         if (isLoading) {
             const loadingCircle = document.createElement('div');
             loadingCircle.className = 'loadingCircle';
