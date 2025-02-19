@@ -404,6 +404,65 @@
         }, 3000); // Simulate response time with 3 seconds delay
     }
 
+    function LLMResponse(userInput) {
+        // 입력창 비활성화
+        const userInputArea = document.getElementById('initialUserInput');
+        userInputArea.disabled = true;
+
+        // Slider(Temperature) 값
+        const temperature = document.getElementById('temperature').value;
+
+        // ngrok url (실제 IP/경로에 맞게 수정)
+        const url = `https://03fb-166-104-137-89.ngrok-free.app/stream/?input_str="${userInput}"&temperature=${temperature}`;
+
+        // 로딩 메시지 표시
+        addMessage('llm', '응답 생성 중...', true);
+
+        // fetch로 응답 가져오기
+        fetch(url, {
+            method: "GET",
+            headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
+        })
+        .then(response => response.text())
+        .then(data => {
+            // 이미 llm 메시지가 가장 마지막에 추가되어 있음
+            const messages = document.getElementsByClassName('message llm');
+            const lastMessage = messages[messages.length - 1];
+
+            if (!lastMessage) return;
+
+            // 로딩 표시 제거
+            const loadingCircle = lastMessage.querySelector('.loadingCircle');
+            if (loadingCircle) loadingCircle.remove();
+
+            // (4) 마크다운 → HTML 변환 (Marked 사용)
+            //    XSS 대비를 위해 data 검증/escape를 고려해야 하지만, 예시는 단순화
+            const html = marked.parse(data);
+
+            // (5) 마크다운 HTML을 .innerHTML로 주입
+            const messageContent = lastMessage.querySelector('.messageContent');
+            messageContent.innerHTML = html;
+
+            // 입력창 다시 활성화
+            userInputArea.disabled = false;
+            userInputArea.focus();
+        })
+        .catch(err => {
+            console.error(err);
+            const errorMsg = '[Error] 응답을 불러오지 못했습니다.';
+            const messages = document.getElementsByClassName('message llm');
+            const lastMessage = messages[messages.length - 1];
+            if (lastMessage) {
+                const loadingCircle = lastMessage.querySelector('.loadingCircle');
+                if (loadingCircle) loadingCircle.remove();
+                lastMessage.querySelector('.messageContent').textContent = errorMsg;
+            }
+            // 입력창 재활성화
+            userInputArea.disabled = false;
+            userInputArea.focus();
+        });
+    }
+
     function setExample(exampleText) {
         document.getElementById('initialUserInput').value = exampleText;
         resizeTextarea(document.getElementById('initialUserInput'));
