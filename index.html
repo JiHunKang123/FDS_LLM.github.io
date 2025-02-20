@@ -442,6 +442,7 @@
         // 로딩 메시지 표시
         addMessage('llm', '응답 생성 중...', true);
 
+        /*
         // fetch로 응답 가져오기
         await fetch(url, {
             method: "GET",
@@ -485,7 +486,8 @@
             userInputArea.disabled = false;
             userInputArea.focus();
         });
-        /*
+        */
+        
         eventSource.onmessage = (event) => {
             // 마지막 메시지가 [DONE]처럼 별도 신호라면 종료 처리
             if (event.data === "[DONE]") {
@@ -504,24 +506,27 @@
                 return;
             }
     
-            // (4) 현재까지 받은 텍스트를 누적하여 표시
-            // 이미 llm 메시지가 추가되어 있다고 가정
+            // 2) 스트리밍 토큰을 누적
+            partialText += event.data;
+    
+            // 3) 이미 llm 메시지가 추가되어 있다고 가정 → 마지막 메시지 찾아서 업데이트
             const messages = document.getElementsByClassName('message llm');
             const lastMessage = messages[messages.length - 1];
             if (!lastMessage) return;
     
+            // 로딩 아이콘이 있다면 제거
             const loadingCircle = lastMessage.querySelector('.loadingCircle');
             if (loadingCircle) loadingCircle.remove();
     
-            // 마크다운 파싱 등 처리 (marked 사용 가정)
-            const newHTML = marked.parse(event.data);
+            // 마크다운 파싱 (XSS 등 보안처리는 생략)
+            const newHTML = marked.parse(partialText);
     
+            // 누적 결과를 messageContent에 반영
             const messageContent = lastMessage.querySelector('.messageContent');
-            // 누적 시에는 기존 내용 + 새 부분
-            messageContent.innerHTML += newHTML;
+            messageContent.innerHTML = newHTML;
         };
     
-        // (5) SSE 에러 처리
+        // SSE 에러 처리
         eventSource.onerror = (err) => {
             console.error('EventSource failed:', err);
             eventSource.close();
@@ -537,7 +542,7 @@
             }
             userInputArea.disabled = false;
             userInputArea.focus();
-        };*/
+        };
     }
 
     function setExample(exampleText) {
