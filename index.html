@@ -485,58 +485,59 @@
             userInputArea.disabled = false;
             userInputArea.focus();
         });
-        //eventSource.onmessage = (event) => {
-        //    // 마지막 메시지가 [DONE]처럼 별도 신호라면 종료 처리
-        //    if (event.data === "[DONE]") {
-        //        eventSource.close();
+        /*
+        eventSource.onmessage = (event) => {
+            // 마지막 메시지가 [DONE]처럼 별도 신호라면 종료 처리
+            if (event.data === "[DONE]") {
+                eventSource.close();
     
-        //        // 로딩 표시 제거
-        //        const messages = document.getElementsByClassName('message llm');
-        //        const lastMessage = messages[messages.length - 1];
-        //        if (lastMessage) {
-        //            const loadingCircle = lastMessage.querySelector('.loadingCircle');
-        //            if (loadingCircle) loadingCircle.remove();
-        //        }
+                // 로딩 표시 제거
+                const messages = document.getElementsByClassName('message llm');
+                const lastMessage = messages[messages.length - 1];
+                if (lastMessage) {
+                    const loadingCircle = lastMessage.querySelector('.loadingCircle');
+                    if (loadingCircle) loadingCircle.remove();
+                }
     
-         //       userInputArea.disabled = false;
-        //        userInputArea.focus();
-        //        return;
-        //    }
+                userInputArea.disabled = false;
+                userInputArea.focus();
+                return;
+            }
     
-        //    // (4) 현재까지 받은 텍스트를 누적하여 표시
-        //    // 이미 llm 메시지가 추가되어 있다고 가정
-        //    const messages = document.getElementsByClassName('message llm');
-        //    const lastMessage = messages[messages.length - 1];
-        //    if (!lastMessage) return;
+            // (4) 현재까지 받은 텍스트를 누적하여 표시
+            // 이미 llm 메시지가 추가되어 있다고 가정
+            const messages = document.getElementsByClassName('message llm');
+            const lastMessage = messages[messages.length - 1];
+            if (!lastMessage) return;
     
-        //    const loadingCircle = lastMessage.querySelector('.loadingCircle');
-        //    if (loadingCircle) loadingCircle.remove();
+            const loadingCircle = lastMessage.querySelector('.loadingCircle');
+            if (loadingCircle) loadingCircle.remove();
     
-        //    // 마크다운 파싱 등 처리 (marked 사용 가정)
-        //    const newHTML = marked.parse(event.data);
+            // 마크다운 파싱 등 처리 (marked 사용 가정)
+            const newHTML = marked.parse(event.data);
     
-        //    const messageContent = lastMessage.querySelector('.messageContent');
-        //    // 누적 시에는 기존 내용 + 새 부분
-        //    messageContent.innerHTML += newHTML;
-       // };
+            const messageContent = lastMessage.querySelector('.messageContent');
+            // 누적 시에는 기존 내용 + 새 부분
+            messageContent.innerHTML += newHTML;
+        };
     
-       // // (5) SSE 에러 처리
-       // eventSource.onerror = (err) => {
-        //    console.error('EventSource failed:', err);
-        //    eventSource.close();
+        // (5) SSE 에러 처리
+        eventSource.onerror = (err) => {
+            console.error('EventSource failed:', err);
+            eventSource.close();
     
-        //    // 에러 메시지 표시
-        //    const messages = document.getElementsByClassName('message llm');
-        //    const lastMessage = messages[messages.length - 1];
-         //   if (lastMessage) {
-         //       const loadingCircle = lastMessage.querySelector('.loadingCircle');
-          //      if (loadingCircle) loadingCircle.remove();
-         //       lastMessage.querySelector('.messageContent').textContent =
-        //            '[Error] 응답을 불러오지 못했습니다.';
-         //   }
-        //    userInputArea.disabled = false;
-        //    userInputArea.focus();
-        //};
+            // 에러 메시지 표시
+            const messages = document.getElementsByClassName('message llm');
+            const lastMessage = messages[messages.length - 1];
+            if (lastMessage) {
+                const loadingCircle = lastMessage.querySelector('.loadingCircle');
+                if (loadingCircle) loadingCircle.remove();
+                lastMessage.querySelector('.messageContent').textContent =
+                    '[Error] 응답을 불러오지 못했습니다.';
+            }
+            userInputArea.disabled = false;
+            userInputArea.focus();
+        };*/
     }
 
     function setExample(exampleText) {
