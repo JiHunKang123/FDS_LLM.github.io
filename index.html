@@ -439,7 +439,7 @@
         // ngrok url (실제 IP/경로에 맞게 수정)
         const url = `https://b5fd-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&temperature=${temperature}`;
         console.log(url)
-        const eventSource = new EventSource(url, { withCredentials: false });
+        const eventSource = new EventSource("https://b5fd-166-104-137-89.ngrok-free.app/stream/?input_str=%EC%95%88%EB%85%95%3F&temperature=0.0", { withCredentials: false });
         
         // 로딩 메시지 표시
         addMessage('llm', '응답 생성 중...', true);
