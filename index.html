@@ -487,7 +487,8 @@
             userInputArea.focus();
         });
         */
-        
+        // 부분 메시지를 누적할 변수를 준비
+        let partialText = "";
         eventSource.onmessage = (event) => {
             // 마지막 메시지가 [DONE]처럼 별도 신호라면 종료 처리
             if (event.data === "[DONE]") {
