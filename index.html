@@ -435,11 +435,14 @@
 
         // Slider(Temperature) 값
         const temperature = document.getElementById('temperature').value;
+        const trial = document.getElementById('trial').value;
+        const loop = document.getElementById('loop').value;
 
         // ngrok url (실제 IP/경로에 맞게 수정)
-        const url = `https://b5fd-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&temperature=${temperature}`;
+        const url = `https://b5fd-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
         console.log(url)
-        const eventSource = new EventSource("https://b5fd-166-104-137-89.ngrok-free.app/stream/?input_str=%EC%95%88%EB%85%95%3F", { withCredentials: false });
+        const eventSource = new EventSource(url, { withCredentials: false });
+        console.log("Failed")
         
         // 로딩 메시지 표시
         addMessage('llm', '응답 생성 중...', true);
