@@ -439,7 +439,7 @@
         const loop = document.getElementById('loop').value;
 
         // ngrok url (실제 IP/경로에 맞게 수정)
-        const url = `https://b5fd-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
+        const url = `https://cae9-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
         console.log(url)
         const eventSource = new EventSource(url, { withCredentials: false });
         console.log("Failed")
