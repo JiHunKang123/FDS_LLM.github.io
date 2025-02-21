@@ -315,12 +315,18 @@
                 fetch(`https://cae9-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
                     method: 'GET',
                 })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
                 break;
             case 'CCTFD':
                 taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 다양한 상인들과 이루어진 신용카드 거래 기록을 기반으로 사기 거래를 탐지하는 task입니다.";
                 fetch(`https://cae9-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
                     method: 'GET',
                 })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
                 break;
             default:
                 taskDescription.textContent = "수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.";
@@ -340,6 +346,9 @@
                 fetch(`https://cae9-166-104-137-89.ngrok-free.app/agent/?agent=${agent}`, {
                     method: 'GET',
                 })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
                 break;
             // case 'OpenAI':
             //     agentDescription.textContent = "OpenAI의 GPT-4 mini 모델이 적용됩니다.";
