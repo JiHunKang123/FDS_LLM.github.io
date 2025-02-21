@@ -33,14 +33,15 @@
             <label for="agent">Toolkit: </label>
             <select id="agent" name="agent" onchange="updateAgentDescription()">
                 <option value="">Toolkit을 선택하세요.</option>
-                <option value="Ollama">Ollama</option>
+                <!-- <option value="Ollama">Ollama</option> -->
                 <option value="vLLM">vLLM</option>
-                <option value="OpenAI">OpenAI</option>
+                <!-- <option value="OpenAI">OpenAI</option> -->
             </select>
-            <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.</p>
+            <!-- <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.</p> -->
+            <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 vLLM 이 있습니다.</p>
         </div>
         <div class="temp_sel">
-            <label for="temperature">Temperature: <span id="temperatureValue">0.7</span></label>
+            <label for="temperature">Temperature: <span id="temperatureValue">0.0</span></label>
             <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">LLM 출력의 다양성 제어 (0.0 - 2.0)</br>(temp->0: 일관된 응답 생성)</br>(temp->2: 다양한 응답 생성)</p>
             <input type="range" id="temperature" name="temperature" min="0.0" max="2.0" step="0.1" value="0.0" oninput="updateSliderValue('temperature', 'temperatureValue')">
         </div>
@@ -311,9 +312,15 @@
         switch (task) {
             case 'BAF':
                 taskDescription.textContent = "BAF(Bank Account Fraud detection) task는 개인의 연 소득, 연령대, 주소 유효성, 고용 상태 등 30가지 특징을 기반으로 대상 계좌의 사기 여부를 탐지하는 task입니다.";
+                fetch(`https://cae9-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
+                    method: 'GET',
+                })
                 break;
             case 'CCTFD':
                 taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 다양한 상인들과 이루어진 신용카드 거래 기록을 기반으로 사기 거래를 탐지하는 task입니다.";
+                fetch(`https://cae9-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
+                    method: 'GET',
+                })
                 break;
             default:
                 taskDescription.textContent = "수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.";
@@ -325,17 +332,21 @@
         const agentDescription = document.getElementById('agentDescription');
 
         switch (agent) {
-            case 'Ollama':
-                agentDescription.textContent = "Ollama는 로컬 환경에서 LLM을 손쉽게 실행할 수 있도록 지원하는 오픈소스 플랫폼입니다.\n여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
-                break;
+            // case 'Ollama':
+            //     agentDescription.textContent = "Ollama는 로컬 환경에서 LLM을 손쉽게 실행할 수 있도록 지원하는 오픈소스 플랫폼입니다.\n여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
+            //     break;
             case 'vLLM':
                 agentDescription.textContent = "vLLM은 LLM의 추론과 서비스를 효율적으로 수행하기 위한 오픈소스 라이브러리입니다.\n여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
+                fetch(`https://cae9-166-104-137-89.ngrok-free.app/agent/?agent=${agent}`, {
+                    method: 'GET',
+                })
                 break;
-            case 'OpenAI':
-                agentDescription.textContent = "OpenAI의 GPT-4 mini 모델이 적용됩니다.";
-                break;
+            // case 'OpenAI':
+            //     agentDescription.textContent = "OpenAI의 GPT-4 mini 모델이 적용됩니다.";
+            //     break;
             default:
-                agentDescription.textContent = "지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.";
+                // agentDescription.textContent = "지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.";
+                agentDescription.textContent = "지원되는 Toolkit으로는 vLLM 이 있습니다.";
         }
     }
 
