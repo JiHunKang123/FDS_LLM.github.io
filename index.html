@@ -444,12 +444,13 @@
         userInputArea.disabled = true;
 
         // Slider(Temperature) 값
+        const task = document.getElementById('task').value;
         const temperature = document.getElementById('temperature').value;
         const trial = document.getElementById('trial').value;
         const loop = document.getElementById('loop').value;
 
         // ngrok url (실제 IP/경로에 맞게 수정)
-        const url = `https://cae9-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
+        const url = `https://cae9-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&task=${task}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
 
         // 로딩 메시지 표시
         addMessage('llm', '응답 생성 중...', true);
