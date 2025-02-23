@@ -531,6 +531,9 @@
                 markdownText += chunk;
                 
                 // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
+                if (markdownText.includes("\n")) {
+                    markdownText = markdownText.replace("\n", "\n> ");
+                }
                 if (markdownText.includes("[/Optimize trial]")) {
                     // "[/Optimize trial]" 문자열 제거
                     markdownText = markdownText.replace("[/Optimize trial]", "");
