@@ -537,7 +537,7 @@
                 // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
                 if (markdownText.includes("[/Optimize trial]")) {
                     // "[/Optimize trial]" 문자열 제거
-                    markdownText = markdownText.replace("[Optimize trial]", "");
+                    markdownText = markdownText.replace("[Optimize trial]", "> ");
                     markdownText = markdownText.replace("[/Optimize trial]", "");
                     // <details> 태그로 감싸기
                     markdownText = "<details><summary>Optimize trial...Flod/Unfold</summary>\n\n" + markdownText + "</details>";
