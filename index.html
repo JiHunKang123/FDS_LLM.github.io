@@ -308,6 +308,21 @@
     function updateTaskDescription() {
         const task = document.getElementById('task').value;
         const taskDescription = document.getElementById('taskDescription');
+
+        // UI 조작을 막기 위한 오버레이 생성
+        const overlay = document.createElement('div');
+        overlay.id = 'ui-blocker';
+        Object.assign(overlay.style, {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)', // 반투명 효과 (원하는 색상 및 투명도로 조정)
+        zIndex: 1000, // 다른 요소 위에 표시되도록 설정
+        cursor: 'wait'
+        });
+        document.body.appendChild(overlay);
         
         switch (task) {
             case 'BAF':
@@ -316,9 +331,10 @@
                     method: 'GET',
                     headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
                 })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error(error));
+                    .then(response => response.json())
+                    // 서버 요청 완료 후 오버레이 제거
+                    .then(data => {console.log(data); document.body.removeChild(overlay);})
+                    .catch(error => {console.error(error); document.body.removeChild(overlay);});
                 break;
             case 'CCTFD':
                 taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 다양한 상인들과 이루어진 신용카드 거래 기록을 기반으로 사기 거래를 탐지하는 task입니다.";
@@ -326,12 +342,13 @@
                     method: 'GET',
                     headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
                 })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error(error));
+                    .then(response => response.json())
+                    .then(data => {console.log(data); document.body.removeChild(overlay);})
+                    .catch(error => {console.error(error); document.body.removeChild(overlay);});
                 break;
             default:
                 taskDescription.textContent = "수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.";
+                document.body.removeChild(overlay);
         }
     }
 
