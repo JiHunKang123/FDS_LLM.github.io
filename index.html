@@ -575,7 +575,7 @@
             file_name = `${task}_fraud.txt`
         }
         
-        fetch(`./${file_name}.txt`)
+        fetch(`./${file_name}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`${file_name} 파일을 불러오지 못했습니다.`);
