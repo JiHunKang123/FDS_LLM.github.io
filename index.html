@@ -531,7 +531,7 @@
                 let chunk = decoder.decode(value, { stream: true });
 
                 if (chunk.includes("[Optimize trial]") || opt_state === true) {
-                    if (chunk.includes("[/Optimize trial]") {
+                    if (chunk.includes("[/Optimize trial]")) {
                         opt_state = false;
                     }
                     markdownText = markdownText.replace("[Optimize trial]", "\n> ");
