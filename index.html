@@ -498,6 +498,10 @@
                 
                 // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
                 messageContent.innerHTML = marked.parse(markdownText);
+
+                // 채팅 컨테이너 자동 스크롤: 새 메시지가 보이도록 아래로 내림
+                const chatContainer = document.getElementById('chatContainer');
+                chatContainer.scrollTop = chatContainer.scrollHeight;
             }
         
             // 로딩 표시 제거
