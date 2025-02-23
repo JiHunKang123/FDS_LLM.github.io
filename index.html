@@ -524,19 +524,19 @@
             const loadingCircle = lastMessage.querySelector('.loadingCircle');
             
             // 응답 스트림에서 청크 단위로 데이터 읽기
-            let opt_state = False
+            let opt_state = false
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
                 let chunk = decoder.decode(value, { stream: true });
 
-                if (chunk.includes("[Optimize trial]") || opt_state == True) {
+                if (chunk.includes("[Optimize trial]") || opt_state === true) {
                     if (chunk.includes("[/Optimize trial]") {
-                        opt_state == False;
+                        opt_state = false;
                     }
                     markdownText = markdownText.replace("[Optimize trial]", "\n> ");
                     chunk = chunk.replace("\n", "\n> ");
-                    opt_state == True;
+                    opt_state = true;
                 }
                 markdownText += chunk;
                 
