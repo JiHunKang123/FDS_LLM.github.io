@@ -534,9 +534,11 @@
                     if (chunk.includes("[/Optimize trial]")) {
                         opt_state = false;
                     }
-                    markdownText = markdownText.replace("[Optimize trial]", "\n> ");
-                    chunk = chunk.replace("\n", "\n> ");
-                    opt_state = true;
+                    else {
+                        markdownText = markdownText.replace("[Optimize trial]", "\n> ");
+                        chunk = chunk.replace("\n", "\n> ");
+                        opt_state = true;
+                    }
                 }
                 markdownText += chunk;
                 
