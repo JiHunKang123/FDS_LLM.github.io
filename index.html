@@ -562,7 +562,35 @@
     }
 
     function setExample(exampleText) {
-        document.getElementById('initialUserInput').value = exampleText;
-        resizeTextarea(document.getElementById('initialUserInput'));
+        let file_name;
+        if (exampleType === '정상 예제') {
+            file_name = `${task}_normal.txt`
+        }
+        else if (exampleType === '사기 예제') {
+            file_name = `${task}_fraud.txt`
+        }
+        
+        fetch(`./${file_name}.txt`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`${file_name} 파일을 불러오지 못했습니다.`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                // 파일의 모든 줄을 배열로 변환 (빈 줄은 제거)
+                const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
+                  
+                // 전체 줄 중 랜덤하게 한 줄 선택
+                const randomIndex = Math.floor(Math.random() * lines.length);
+                const selectedLine = lines[randomIndex] || '';
+        
+                const inputArea = document.getElementById('initialUserInput');
+                inputArea.value = selectedLine;
+                resizeTextarea(inputArea);
+            })
+            .catch(error => {
+                console.error('예제 텍스트를 불러오는 중 오류 발생:', error);
+            });
     }
 </script>
