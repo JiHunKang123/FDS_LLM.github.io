@@ -531,6 +531,12 @@
                 markdownText += chunk;
                 
                 // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
+                if (markdownText.includes("[/Optimize trial]")) {
+                    // "[/Optimize trial]" 문자열 제거
+                    markdownText = markdownText.replace("[/Optimize trial]", "");
+                    // <details> 태그로 감싸기
+                    markdownText = "<details><summary>접기/펼치기</summary>" + markdownText + "</details>";
+                }
                 messageContent.innerHTML = marked.parse(markdownText);
 
                 // 채팅 컨테이너 자동 스크롤: 새 메시지가 보이도록 아래로 내림
