@@ -528,12 +528,13 @@
                 const { done, value } = await reader.read();
                 if (done) break;
                 const chunk = decoder.decode(value, { stream: true });
+
+                if (markdownText.includes("[Optimize trial]")) {
+                    chunk = chunk.replace("\n", "\n> ");
+                }
                 markdownText += chunk;
                 
                 // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
-                if (markdownText.includes("[Optimize trial]")) {
-                    markdownText = markdownText.replace("\n", "\n> ");
-                }
                 if (markdownText.includes("[/Optimize trial]")) {
                     // "[/Optimize trial]" 문자열 제거
                      markdownText = markdownText.replace("[Optimize trial]", "");
