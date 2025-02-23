@@ -562,6 +562,7 @@
     }
 
     function setExample(exampleText) {
+        const task = document.getElementById('task').value;
         let file_name;
         if (exampleText === '정상 예제') {
             file_name = `${task}_normal.txt`
