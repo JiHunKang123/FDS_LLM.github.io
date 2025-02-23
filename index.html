@@ -529,57 +529,25 @@
                 if (done) break;
                 let chunk = decoder.decode(value, { stream: true });
 
-                //if (markdownText.includes("[Optimize trial]")) {
-                //    chunk = chunk.replace("\n", "\n> ");
-                //}
+                if (markdownText.includes("[Optimize trial]")) {
+                    chunk = chunk.replace("\n", "\n> ");
+                }
                 markdownText += chunk;
                 
-                //// 누적된 markdown 데이터를 HTML로 변환하여 업데이트
-                //if (markdownText.includes("[/Optimize trial]")) {
-                //    // "[/Optimize trial]" 문자열 제거
-                //    markdownText = markdownText.replace("[Optimize trial]", "");
-                //    markdownText = markdownText.replace("[/Optimize trial]", "");
-                //    // <details> 태그로 감싸기
-                //    markdownText = "<details><summary>접기/펼치기</summary>" + markdownText + "</details>";
-                //}
+                // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
+                if (markdownText.includes("[/Optimize trial]")) {
+                    // "[/Optimize trial]" 문자열 제거
+                    markdownText = markdownText.replace("[Optimize trial]", "");
+                    markdownText = markdownText.replace("[/Optimize trial]", "");
+                    // <details> 태그로 감싸기
+                    markdownText = "<details><summary>접기/펼치기</summary>\n\n" + markdownText + "</details>";
+                }
                 messageContent.innerHTML = marked.parse(markdownText);
 
                 // 채팅 컨테이너 자동 스크롤: 새 메시지가 보이도록 아래로 내림
                 const chatContainer = document.getElementById('chatContainer');
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
-
-
-            
-            // 스트림 수신 완료 후, [Optimize trial]와 [/Optimize trial] 사이의 내용만 변환 처리
-            if (markdownText.includes("[Optimize trial]") && markdownText.includes("[/Optimize trial]")) {
-              // 마커의 위치를 찾음
-              let startIndex = markdownText.indexOf("[Optimize trial]");
-              let endIndex = markdownText.indexOf("[/Optimize trial]");
-              
-              // 마커 전의 텍스트, 마커 사이의 텍스트, 마커 후의 텍스트로 분리
-              let beforeText = markdownText.substring(0, startIndex);
-              let optimizeContent = markdownText.substring(startIndex + "[Optimize trial]".length, endIndex);
-              let afterText = markdownText.substring(endIndex + "[/Optimize trial]".length);
-              
-              // optimizeContent의 각 줄 앞에 blockquote 형식 적용: 각 줄에 '> ' 추가
-              optimizeContent = optimizeContent
-                .split("\n")
-                .map(line => "> " + line)
-                .join("\n");
-              
-              // 해당 내용을 <details> 태그로 감싸기
-              let foldedContent = `<details><summary>접기/펼치기</summary>\n${optimizeContent}\n</details>`;
-              
-              // 전체 텍스트 재조합
-              markdownText = beforeText + foldedContent + afterText;
-              
-              // 최종 업데이트
-              messageContent.innerHTML = marked.parse(markdownText);
-            }
-
-
-            
             // 로딩 표시 제거
             if (loadingCircle) loadingCircle.remove();
         
