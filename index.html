@@ -313,15 +313,32 @@
         const overlay = document.createElement('div');
         overlay.id = 'ui-blocker';
         Object.assign(overlay.style, {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.1)', // 반투명 효과 (원하는 색상 및 투명도로 조정)
-        zIndex: 1000, // 다른 요소 위에 표시되도록 설정
-        cursor: 'wait'
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)', // 반투명 효과 (원하는 색상 및 투명도로 조정)
+            zIndex: 1000, // 다른 요소 위에 표시되도록 설정
+            cursor: 'wait'
         });
+
+        // 안내 문구 추가
+        const guidanceMessage = document.createElement('div');
+        guidanceMessage.innerText = '설정을 적용하는 중입니다. 잠시만 기다려주세요...';
+        Object.assign(guidanceMessage.style, {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            color: '#000',
+            fontSize: '18px',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            padding: '10px 20px',
+            borderRadius: '5px'
+        });
+        overlay.appendChild(guidanceMessage);
+        
         document.body.appendChild(overlay);
         
         switch (task) {
