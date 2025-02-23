@@ -467,36 +467,47 @@
         // 로딩 메시지 표시
         addMessage('llm', '응답 생성 중...', true);
 
-        // fetch로 응답 가져오기
-        await fetch(url, {
-            method: "GET",
-            headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
-        })
-        .then(response => response.text())
-        .then(data => {
-            // 이미 llm 메시지가 가장 마지막에 추가되어 있음
+        try {
+            const response = await fetch(url, {
+                method: "GET",
+                headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
+            });
+        
+            if (!response.ok) {
+                throw new Error(`네트워크 응답 오류: ${response.statusText}`);
+            }
+        
+            // 스트림 읽기 준비
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let markdownText = '';
+        
+            // 마지막으로 추가된 llm 메시지 가져오기
             const messages = document.getElementsByClassName('message llm');
             const lastMessage = messages[messages.length - 1];
-
             if (!lastMessage) return;
-
-            // 로딩 표시 제거
-            const loadingCircle = lastMessage.querySelector('.loadingCircle');
-            if (loadingCircle) loadingCircle.remove();
-
-            // (4) 마크다운 → HTML 변환 (Marked 사용)
-            //    XSS 대비를 위해 data 검증/escape를 고려해야 하지만, 예시는 단순화
-            const html = marked.parse(data);
-
-            // (5) 마크다운 HTML을 .innerHTML로 주입
             const messageContent = lastMessage.querySelector('.messageContent');
-            messageContent.innerHTML = html;
-
+            const loadingCircle = lastMessage.querySelector('.loadingCircle');
+            
+            // 응답 스트림에서 청크 단위로 데이터 읽기
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                const chunk = decoder.decode(value, { stream: true });
+                markdownText += chunk;
+                
+                // 누적된 markdown 데이터를 HTML로 변환하여 업데이트
+                messageContent.innerHTML = marked.parse(markdownText);
+            }
+        
+            // 로딩 표시 제거
+            if (loadingCircle) loadingCircle.remove();
+        
             // 입력창 다시 활성화
             userInputArea.disabled = false;
             userInputArea.focus();
-        })
-        .catch(err => {
+        
+        } catch (err) {
             console.error(err);
             const errorMsg = '[Error] 응답을 불러오지 못했습니다.';
             const messages = document.getElementsByClassName('message llm');
@@ -509,7 +520,7 @@
             // 입력창 재활성화
             userInputArea.disabled = false;
             userInputArea.focus();
-        });
+        }
     }
 
     function setExample(exampleText) {
