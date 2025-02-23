@@ -1,77 +1,93 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASML&KnC FDS Demo</title>
-    <link rel="shortcut icon" type="image/x-icon" href="logo.ico">
-    <link rel="apple-touch-icon" sizes="64x64" href="favicon_logo.png">
-    <link rel="stylesheet" href="https://webfontworld.github.io/NanumSquare/NanumSquare.css">
-    <!-- (1) GitHub Markdown CSS 로드 -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
-    />
-    <script>document.addEventListener("DOMContentLoaded", function() {alert("현재 오류 수정에 있습니다. 잠시만 더 기다려주시면 감사하겠습니다.");});</script>
-</head>
-<body>
-    <div class="sidebar">
-        <div class="demo_description">
-            <img src="demo_logo.png" alt="LLM Logo" style="width: 70%; margin: auto; display: block;">
-            <h2 style="font-size: 16pt; font-weight: 200; color: #000000; text-align: center; margin-block-end: auto">ASML & KnC FDS Demo</h2>
-        </div>
-        <div class="task_sel">
-            <label for="task">Task: </label>
-            <select id="task" name="task" onchange="updateTaskDescription()">
-                <option value="">Task를 선택하세요.</option>
-                <option value="BAF">BAF</option>
-                <option value="CCTFD">CCTFD</option>
-            </select>
-            <p id="taskDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.</p>
-        </div>
-        <div class="agent_sel">
-            <label for="agent">Toolkit: </label>
-            <select id="agent" name="agent" onchange="updateAgentDescription()">
-                <option value="">Toolkit을 선택하세요.</option>
-                <!-- <option value="Ollama">Ollama</option> -->
-                <option value="vLLM">vLLM</option>
-                <!-- <option value="OpenAI">OpenAI</option> -->
-            </select>
-            <!-- <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.</p> -->
-            <p id="agentDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 vLLM 이 있습니다.</p>
-        </div>
-        <div class="temp_sel">
-            <label for="temperature">Temperature: <span id="temperatureValue">0.0</span></label>
-            <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">LLM 출력의 다양성 제어 (0.0 - 2.0)</br>(temp->0: 일관된 응답 생성)</br>(temp->2: 다양한 응답 생성)</p>
-            <input type="range" id="temperature" name="temperature" min="0.0" max="2.0" step="0.1" value="0.0" oninput="updateSliderValue('temperature', 'temperatureValue')">
-        </div>
-        <div class="trial_sel">
-            <label for="trial">Trial: <span id="trialValue">5</span></label>
-            <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">최대 Reflection 반영 횟수 (0 - 5)</p>
-            <input type="range" id="trial" name="trial" min="0" max="5" step="1" value="5" oninput="updateSliderValue('trial', 'trialValue')">
-        </div>
-        <div class="loop_sel">
-            <label for="loop">Loop: <span id="loopValue">6</span></label>
-            <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">최대 내부적 추론 횟수 (0 - 5)</p>
-            <input type="range" id="loop" name="loop" min="0" max="6" step="1" value="6" oninput="updateSliderValue('loop', 'loopValue')">
-        </div>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ASML&KnC FDS Demo</title>
+        <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+        <link rel="apple-touch-icon" sizes="64x64" href="favicon_logo.png" />
+        <link rel="stylesheet" href="https://webfontworld.github.io/NanumSquare/NanumSquare.css" />
+        <!-- GitHub Markdown CSS 로드 -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+        />
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                alert("현재 오류 수정에 있습니다. 잠시만 더 기다려주시면 감사하겠습니다.");
+            });
+        </script>
+    </head>
     
-    <div class="main">
-        <div class="initial-view">
-            <img src="demo_logo.png" alt="LLM Logo" style="width: 500px;">
+    <body>
+        <div class="sidebar">
+            <div class="demo_description">
+                <img src="demo_logo.png" alt="LLM Logo" style="width: 70%; margin: auto; display: block;">
+                <h2 style="font-size: 16pt; font-weight: 200; color: #000000; text-align: center; margin-block-end: auto">ASML &amp; KnC FDS Demo</h2>
+            </div>
+            
+            <div class="task_sel">
+                <label for="task">Task: </label>
+                <select id="task" name="task" onchange="updateTaskDescription()">
+                    <option value="">Task를 선택하세요.</option>
+                    <option value="BAF">BAF</option>
+                    <option value="CCTFD">CCTFD</option>
+                </select>
+                <p id="taskDescription" style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">수행 가능한 Task로는 은행 계좌 사기 탐지(BAF, Bank Account Fraud detection)와 신용카드 거래 사기 탐지(CCTFD, Credit Card Transaction Fraud Detection)가 있습니다.</p>
+            </div>
+            
+            <div class="agent_sel">
+                <label for="agent">Toolkit: </label>
+                <select id="agent" name="agent" onchange="updateAgentDescription()">
+                    <option value="">Toolkit을 선택하세요.</option>
+                    <!-- <option value="Ollama">Ollama</option> -->
+                    <option value="vLLM">vLLM</option>
+                    <!-- <option value="OpenAI">OpenAI</option> -->
+                </select>
+                <!-- <p id="agentDescription"style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 Ollama, vLLM, OpenAI가 있습니다.</p> -->
+                <p id="agentDescription"style="margin-top: 5px; color: #666666; font-size: 10pt; font-weight: 200; white-space: pre-wrap;">지원되는 Toolkit으로는 vLLM 이 있습니다.</p>
+            </div>
+            
+            <div class="temp_sel">
+                <label for="temperature">Temperature: <span id="temperatureValue">0.0</span></label>
+                <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">LLM 출력의 다양성 제어 (0.0 - 2.0)<br />(temp-&gt;0: 일관된 응답 생성)<br />(temp-&gt;2: 다양한 응답 생성)</p>
+                <input type="range" id="temperature" name="temperature" min="0.0" max="2.0" step="0.1" value="0.0" oninput="updateSliderValue('temperature', 'temperatureValue')">
+            </div>
+            
+            <div class="trial_sel">
+                <label for="trial">Trial: <span id="trialValue">5</span></label>
+                <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">최대 Reflection 반영 횟수 (0 - 5)</p>
+                <input type="range" id="trial" name="trial" min="0" max="5" step="1" value="5" oninput="updateSliderValue('trial', 'trialValue')">
+            </div>
+            
+            <div class="loop_sel">
+                <label for="loop">Loop: <span id="loopValue">6</span></label>
+                <p style="font-size: 10pt; font-weight: 200; margin-top: 5px; color: #666666;">최대 내부적 추론 횟수 (0 - 5)</p>
+                <input type="range" id="loop" name="loop" min="0" max="6" step="1" value="6" oninput="updateSliderValue('loop', 'loopValue')">
+            </div>
         </div>
-        <div class="chatContainer" id="chatContainer" style="display: none;">
+        
+        <div class="main">
+            <div class="initial-view"> <img src="demo_logo.png" alt="LLM Logo" style="width: 500px;"></div>
+            
+            <div class="chatContainer" id="chatContainer" style="display: none;"></div>
+            
+            <div class="example-buttons">
+                <button onclick="setExample('정상 예제')" font-size: 12pt;>예제: 정상</button>
+                <button onclick="setExample('사기 예제')" font-size: 12pt;>예제: 사기</button>
+            </div>
+            
+            <div class="input-view">
+                <textarea
+                    id="initialUserInput"
+                    rows={1}
+                    placeholder="로그를 입력하세요."
+                    oninput="resizeTextarea(this)"
+                    onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); }">
+                </textarea>
+            </div>
         </div>
-        <div class="example-buttons">
-            <button onclick="setExample('정상 예제')" font-size: 12pt;>예제: 정상</button>
-            <button onclick="setExample('사기 예제')" font-size: 12pt;>예제: 사기</button>
-        </div>
-        <div class="input-view">
-            <textarea id="initialUserInput" rows={1} placeholder="로그를 입력하세요. 현재 작업중인 상황으로 FDSLLM가 아닌 LegalLLM이 적용되어있습니다." oninput="resizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { startChat(); event.preventDefault(); }"></textarea>
-        </div>
-    </div>
-</body>
+    </body>
 </html>
 
 
@@ -301,6 +317,13 @@
         100% { transform: rotate(360deg); }
     }
 </style>
+
+
+
+
+
+
+
 
 <!-- (3) Marked 라이브러리 로드 -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
