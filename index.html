@@ -556,6 +556,10 @@
                 const chatContainer = document.getElementById('chatContainer');
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
+            // 새로 추가된 수식 렌더링 (MathJax가 적용)
+            if (typeof MathJax !== "undefined") {
+                MathJax.typesetPromise();
+            }
             // 로딩 표시 제거
             if (loadingCircle) loadingCircle.remove();
         
