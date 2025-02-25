@@ -13,6 +13,18 @@
         href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
     />
     <!-- <script>document.addEventListener("DOMContentLoaded", function() {alert("CCTFD는 작업중에 있습니다. 잠시만 더 기다려주시면 감사하겠습니다.");});</script> -->
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -547,6 +559,7 @@
                     markdownText = "<details><summary>Thinking...(Optimize trial) Flod/Unfold</summary>\n\n" + markdownText + "</details>";
                 }
                 messageContent.innerHTML = marked.parse(markdownText);
+                messageContent.innerHTML = `<div class="mathjax-latex">${marked.parse(markdownText)}</div>`;
                 // 새로 추가된 수식 렌더링 (MathJax가 적용)
                 if (typeof MathJax !== "undefined") {
                     MathJax.typesetPromise();
@@ -556,10 +569,12 @@
                 const chatContainer = document.getElementById('chatContainer');
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
-            // 새로 추가된 수식 렌더링 (MathJax가 적용)
-            if (typeof MathJax !== "undefined") {
-                MathJax.typesetPromise();
+            if (window.MathJax) {
+                MathJax.typesetPromise().catch(err => console.error("MathJax 렌더링 오류:", err));
+            } else {
+                console.warn("MathJax가 아직 로드되지 않았습니다.");
             }
+
             // 로딩 표시 제거
             if (loadingCircle) loadingCircle.remove();
         
