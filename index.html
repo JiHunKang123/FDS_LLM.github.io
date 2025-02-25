@@ -546,6 +546,10 @@
                     markdownText = "<details><summary>Thinking...(Optimize trial) Flod/Unfold</summary>\n\n" + markdownText + "</details>";
                 }
                 messageContent.innerHTML = marked.parse(markdownText);
+                // 새로 추가된 수식 렌더링 (MathJax가 적용)
+                if (typeof MathJax !== "undefined") {
+                    MathJax.typesetPromise();
+                }
 
                 // 채팅 컨테이너 자동 스크롤: 새 메시지가 보이도록 아래로 내림
                 const chatContainer = document.getElementById('chatContainer');
