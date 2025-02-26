@@ -672,17 +672,12 @@
     }
     // 예시: \t로 구분된 "key: value"를 영역별로 묶어주는 함수
     function formatLogForDisplay(rawLogString) {
-        // 1) 문자열 안의 '\t'를 실제 탭 문자로 변환
-        //    String.replaceAll() 또는 정규식 replace 사용
-        const realTabString = rawLogString.replace(/\\t/g, '\t');
-        // 이제 realTabString 안에는 실제 탭(0x09)이 들어있음
-    
-        // 2) 진짜 탭을 기준으로 split
-        const replaced = realTabString
-            .split('\t')
-            .map(item => '- ' + item.trim())
-            .join('\n');
-    
+        const replaced = rawLogString
+        // 백슬래시+t를 인식하기 위해 '\\t'
+        .split('\\t') 
+        .map(item => '- ' + item.trim())
+        .join('\n');
+        
         return `📌 Example Log\n${replaced}`;
     }
 </script>
