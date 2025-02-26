@@ -672,11 +672,15 @@
     }
     // 예시: \t로 구분된 "key: value"를 영역별로 묶어주는 함수
     function formatLogForDisplay(rawLogString) {
-        // (실제 구현은 질문에 드린 예시처럼 분류해서 문자열 만들면 됩니다)
-        // 여기서는 간단히, \t를 개행으로 바꿔보기만 하겠습니다:
-        const replaced = rawLogString
+        // 1) 문자열 안의 '\t'를 실제 탭 문자로 변환
+        //    String.replaceAll() 또는 정규식 replace 사용
+        const realTabString = rawLogString.replace(/\\t/g, '\t');
+        // 이제 realTabString 안에는 실제 탭(0x09)이 들어있음
+    
+        // 2) 진짜 탭을 기준으로 split
+        const replaced = realTabString
             .split('\t')
-            .map(item => '- ' + item.trim())  
+            .map(item => '- ' + item.trim())
             .join('\n');
     
         return `📌 Example Log\n${replaced}`;
