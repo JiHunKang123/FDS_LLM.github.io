@@ -439,21 +439,31 @@
         // document.getElementById('initialUserInput').value = '';
         // LLMResponse(userInput);
         
-        // textarea에서 읽는 대신 hidden input에서 읽는다
-        const rawData = document.getElementById('rawLogInput').value.trim();
-        if (!rawData) return;
+        const textArea = document.getElementById('initialUserInput');
+        // textArea.value에는 "사용자가 직접 쓴 내용" 또는 "예제 버튼으로 포매팅된 내용"이 들어 있음
     
+        if (!textArea.value.trim()) return;
+    
+        // 1) 숨겨진 input에 실제 전송할 raw 텍스트를 넣는다.
+        //    - 여기서는 “사용자 입력 == raw” 가정하므로 그대로 저장
+        //    - 만약 예제 버튼을 썼다면 이미 rawLogInput에 들어 있을 것이지만,
+        //      직접 입력 시에는 지금 우리가 세팅해야 한다.
+        document.getElementById('rawLogInput').value = textArea.value;
+    
+        // 2) 채팅창에 사용자 발화를 표시
+        //    - 화면 표시용은 그냥 textarea에 있는 걸 그대로 쓰면 된다.
+        addMessage('user', textArea.value);
+        
+        // textarea 초기화
+        textArea.value = '';
+        
+        // 3) 실제 LLM 요청
+        const rawData = document.getElementById('rawLogInput').value;
+        LLMResponse(rawData);
+    
+        // UI 조작
         document.querySelector('.initial-view').style.display = 'none';
         document.getElementById('chatContainer').style.display = 'inline';
-    
-        // 채팅창에는 textarea의 포맷된 텍스트를 그대로 출력
-        const userFormattedText = document.getElementById('initialUserInput').value;
-        addMessage('user', userFormattedText);
-    
-        document.getElementById('initialUserInput').value = '';
-    
-        // 서버에는 원본 탭(\t) 문자열을 전송
-        LLMResponse(rawData);
     }
 
     function addMessage(sender, text, isLoading = false) {
