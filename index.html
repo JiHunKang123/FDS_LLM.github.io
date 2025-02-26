@@ -428,16 +428,32 @@
     }
     
     function startChat() {
-        const userInput = document.getElementById('initialUserInput').value;
-        if (!userInput.trim()) return;
+        // const userInput = document.getElementById('initialUserInput').value;
+        // if (!userInput.trim()) return;
                 
-        // Hide initial-view and show chatContainer
+        // // Hide initial-view and show chatContainer
+        // document.querySelector('.initial-view').style.display = 'none';
+        // document.getElementById('chatContainer').style.display = 'inline';
+        
+        // addMessage('user', userInput);
+        // document.getElementById('initialUserInput').value = '';
+        // LLMResponse(userInput);
+        
+        // textarea에서 읽는 대신 hidden input에서 읽는다
+        const rawData = document.getElementById('rawLogInput').value.trim();
+        if (!rawData) return;
+    
         document.querySelector('.initial-view').style.display = 'none';
         document.getElementById('chatContainer').style.display = 'inline';
-        
-        addMessage('user', userInput);
+    
+        // 채팅창에는 textarea의 포맷된 텍스트를 그대로 출력
+        const userFormattedText = document.getElementById('initialUserInput').value;
+        addMessage('user', userFormattedText);
+    
         document.getElementById('initialUserInput').value = '';
-        LLMResponse(userInput);
+    
+        // 서버에는 원본 탭(\t) 문자열을 전송
+        LLMResponse(rawData);
     }
 
     function addMessage(sender, text, isLoading = false) {
