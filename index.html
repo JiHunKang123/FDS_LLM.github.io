@@ -364,7 +364,7 @@
         switch (task) {
             case 'BAF':
                 taskDescription.textContent = "BAF(Bank Account Fraud detection) task는 개인의 연 소득, 연령대, 주소 유효성, 고용 상태 등 30가지 특징을 기반으로 대상 계좌의 사기 여부를 탐지하는 task입니다.";
-                fetch(`https://576f-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
+                fetch(`https://b765-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
                     method: 'GET',
                     headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
                 })
@@ -375,7 +375,7 @@
                 break;
             case 'CCTFD':
                 taskDescription.textContent = "CCTFD(Credit Card Transaction Fraud Detection) task는 다양한 상인들과 이루어진 신용카드 거래 기록을 기반으로 사기 거래를 탐지하는 task입니다.";
-                fetch(`https://576f-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
+                fetch(`https://b765-166-104-137-89.ngrok-free.app/task/?task=${task}`, {
                     method: 'GET',
                     headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
                 })
@@ -399,7 +399,7 @@
             //     break;
             case 'vLLM':
                 agentDescription.textContent = "vLLM은 LLM의 추론과 서비스를 효율적으로 수행하기 위한 오픈소스 라이브러리입니다.\n여기서는 Meta의 Llama 3.1 8B 모델의 LoRA 학습 버전이 적용됩니다.";
-                // fetch(`https://576f-166-104-137-89.ngrok-free.app/agent/?agent=${agent}`, {
+                // fetch(`https://b765-166-104-137-89.ngrok-free.app/agent/?agent=${agent}`, {
                 //     method: 'GET',
                 //     headers: new Headers({ "ngrok-skip-browser-warning": "69420" })
                 // })
@@ -545,7 +545,7 @@
         const loop = document.getElementById('loop').value;
 
         // ngrok url (실제 IP/경로에 맞게 수정)
-        const url = `https://576f-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&task=${task}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
+        const url = `https://b765-166-104-137-89.ngrok-free.app/stream/?input_str=${encodeURIComponent(userInput)}&task=${task}&temperature=${temperature}&trial=${trial}&loop=${loop}`;
 
         // 로딩 메시지 표시
         addMessage('llm', '응답 생성 중...', true);
